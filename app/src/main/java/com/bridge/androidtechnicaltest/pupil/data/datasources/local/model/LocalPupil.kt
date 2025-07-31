@@ -14,7 +14,7 @@ class LocalPupil(
     val name: String,
 
     @ColumnInfo(name = "country")
-    val value: String,
+    val country: String,
 
     @ColumnInfo(name = "image")
     val image: String,

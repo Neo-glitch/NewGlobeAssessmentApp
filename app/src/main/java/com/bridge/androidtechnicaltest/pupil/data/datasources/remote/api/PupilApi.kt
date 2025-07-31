@@ -28,5 +28,5 @@ interface PupilApi {
     fun updatePupil(@Path("pupilId") pupilId: Int, @Body request: UpdatePupilRequest): Single<RemotePupil>
 
     @DELETE(K.DELETE_PUPIL)
-    fun deletePupil(@Path("pupilId") pupilId: Int)
+    fun deletePupil(@Path("pupilId") pupilId: Int): Single<Unit>
 }
