@@ -2,8 +2,8 @@ package com.bridge.androidtechnicaltest.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bridge.androidtechnicaltest.db.AppDatabase
-import com.bridge.androidtechnicaltest.network.PupilApi
+import com.bridge.androidtechnicaltest.core.database.AppDatabase
+import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.api.PupilApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -42,10 +42,10 @@ object PupilAPIFactory {
     }
 }
 
-object DatabaseFactory {
-
-    fun getDBInstance(context: Context) =
-            Room.databaseBuilder(context, AppDatabase::class.java, "TechnicalTestDb")
-                    .fallbackToDestructiveMigration()
-                    .build()
-}
+//object DatabaseFactory {
+//
+//    fun getDBInstance(context: Context) =
+//            Room.databaseBuilder(context, AppDatabase::class.java, "TechnicalTestDb")
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//}

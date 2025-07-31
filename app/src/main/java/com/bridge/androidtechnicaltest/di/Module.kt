@@ -1,16 +1,17 @@
 package com.bridge.androidtechnicaltest.di
 
-import com.bridge.androidtechnicaltest.db.IPupilRepository
-import com.bridge.androidtechnicaltest.db.PupilRepository
+import com.bridge.androidtechnicaltest.core.database.DatabaseFactory
+import com.bridge.androidtechnicaltest.pupil.data.repository.PupilRepositoryImpl
+import com.bridge.androidtechnicaltest.pupil.domain.PupilRepository
 
 import org.koin.dsl.module
 
-val networkModule = module {
-    factory { PupilAPIFactory.retrofitPupil() }
-}
+//val networkModule = module {
+////    factory { PupilAPIFactory.retrofitPupil() }
+//}
 
 val databaseModule = module {
-    factory { DatabaseFactory.getDBInstance(get()) }
-    single<IPupilRepository>{ PupilRepository(get(), get()) }
+    single { DatabaseFactory.getDBInstance(get()) }
+//    single<PupilRepository>{ PupilRepositoryImpl(get(), get()) }
 }
 

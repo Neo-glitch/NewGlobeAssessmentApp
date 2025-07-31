@@ -12,4 +12,13 @@
 
 	</style>
 
+	<style name="ToastStyle" >
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">13sp</item>
+		<item name="stColorBackground">#CCA31300</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">10dp</item>
+	</style>
+
 </resources>

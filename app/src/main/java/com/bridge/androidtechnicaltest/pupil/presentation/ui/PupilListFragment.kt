@@ -1,4 +1,4 @@
-package com.bridge.androidtechnicaltest.ui
+package com.bridge.androidtechnicaltest.pupil.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

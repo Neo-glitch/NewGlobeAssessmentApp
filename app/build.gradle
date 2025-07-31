@@ -4,6 +4,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def localProperties = new java.util.Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.newInputStream())
+}
+
 android {
     namespace 'com.bridge.androidtechnicaltest'
     compileSdk 36
@@ -16,6 +22,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "REQUEST_ID", "\"${localProperties["REQUEST_ID"]}\"")
+        buildConfigField("String", "USER_AGENT", "\"${localProperties["USER_AGENT"]}\"")
     }
 
     buildTypes {
@@ -28,6 +37,7 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+        buildConfig true
     }
 
     compileOptions {
@@ -40,14 +50,16 @@ android {
     }
 }
 
-// Dependency versions
-def koinVersion = "4.1.0"
-def roomVersion = "2.5.2"
-def retrofitVersion = "2.9.0"
-def rxandroidVersion = "2.1.1"
-def rxJavaVersion = "2.2.21"
-
 dependencies {
+    // Dependency versions
+    def koinVersion = "4.1.0"
+    def roomVersion = "2.5.2"
+    def retrofitVersion = "2.9.0"
+    def rxandroidVersion = "2.1.1"
+    def rxJavaVersion = "2.2.21"
+    def nav_version = "2.9.3"
+    def styleableToast = "2.4.0"
+
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
@@ -75,6 +87,12 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    // Views/Fragments Integration
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    implementation "io.github.muddz:styleabletoast:$styleableToast"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
