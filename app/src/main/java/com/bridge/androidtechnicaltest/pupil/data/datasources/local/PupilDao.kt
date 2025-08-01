@@ -45,7 +45,7 @@ interface PupilDao {
     suspend fun deletePupilsWithSyncedStatus()
 
     @Query("DELETE FROM Pupils WHERE pupil_id = :pupilId")
-    suspend fun deleteByPupilId(pupilId: Long)
+    suspend fun deleteByPupilId(pupilId: Int)
 
     @Query("SELECT * FROM Pupils WHERE sync_status != 'SYNCED'")
     suspend fun getUnsyncedPupils(): List<LocalPupil>

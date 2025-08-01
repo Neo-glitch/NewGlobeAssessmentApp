@@ -8,7 +8,7 @@ import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemote
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemoteDataSourceImpl
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.api.PupilApi
 import com.bridge.androidtechnicaltest.pupil.data.repository.PupilRepositoryImpl
-import com.bridge.androidtechnicaltest.pupil.domain.PupilRepository
+import com.bridge.androidtechnicaltest.pupil.domain.repository.PupilRepository
 import com.bridge.androidtechnicaltest.pupil.presentation.AddEditPupilViewModel
 import com.bridge.androidtechnicaltest.pupil.presentation.PupilDetailViewModel
 import com.bridge.androidtechnicaltest.pupil.presentation.PupilListViewModel

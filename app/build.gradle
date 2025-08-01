@@ -53,7 +53,7 @@ android {
 dependencies {
     // Dependency versions
     def koinVersion = "4.1.0"
-    def roomVersion = "2.5.2"
+    def roomVersion = "2.7.2"
     def retrofitVersion = "2.9.0"
     def rxandroidVersion = "2.1.1"
     def rxJavaVersion = "2.2.21"
@@ -72,9 +72,13 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "com.google.android.material:material:1.11.0"
     implementation "androidx.recyclerview:recyclerview:1.3.2"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
 
     // Koin for Android
     implementation "io.insert-koin:koin-core:$koinVersion"
@@ -87,7 +91,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-paging:$roomVersion"
-    implementation "androidx.room:room-rxjava2:$roomVersion"
+//    implementation "androidx.room:room-rxjava2:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // paging

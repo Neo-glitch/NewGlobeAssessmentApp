@@ -16,7 +16,7 @@ interface PupilLocalDataSource {
     suspend fun getPupil(id: Int): LocalPupil
     suspend fun deleteAllPupils()
     suspend fun deletePupilsWithSyncedStatus()
-    suspend fun deleteByPupilId(pupilId: Long)
+    suspend fun deleteByPupilId(pupilId: Int)
     suspend fun getUnsyncedPupils(): List<LocalPupil>
     suspend fun getPupilsBySyncStatus(status: SyncStatus): List<LocalPupil>
     suspend fun updateLocalMediatorData(isRefresh: Boolean, localPupils: List<LocalPupil>, page: Int, endOfPagination: Boolean)

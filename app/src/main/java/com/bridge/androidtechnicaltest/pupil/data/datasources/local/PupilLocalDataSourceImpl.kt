@@ -49,7 +49,7 @@ class PupilLocalDataSourceImpl(
         pupilDao.deletePupilsWithSyncedStatus()
     }
 
-    override suspend fun deleteByPupilId(pupilId: Long) {
+    override suspend fun deleteByPupilId(pupilId: Int) {
         pupilDao.deleteByPupilId(pupilId)
     }
 
