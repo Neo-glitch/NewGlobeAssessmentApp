@@ -1,0 +1,19 @@
+package com.bridge.androidtechnicaltest.pupil.data.datasources.local
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.PupilRemoteKeys
+
+@Dao
+interface PupilRemoteKeysDao {
+    @Query("SELECT * FROM pupil_remote_keys WHERE pupilId = :id")
+    suspend fun getRemoteKeysByPupilId(id: Int): PupilRemoteKeys?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(remoteKeys: List<PupilRemoteKeys>)
+
+    @Query("DELETE FROM pupil_remote_keys")
+    suspend fun clearRemoteKeys()
+}

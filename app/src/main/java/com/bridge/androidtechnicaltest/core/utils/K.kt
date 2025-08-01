@@ -5,6 +5,8 @@ object K {
     const val TEST_NETWORK_PORT = 80
     const val API_TIMEOUT: Long = 30
 
+    const val PAGE_SIZE = 20
+
     const val NETWORK_ERROR_MSG = "Network error, please try again later"
     const val NO_INTERNET_MSG = "Please check your internet connection"
     const val SERVER_ERROR_MSG = "Unknown server error, try again later"

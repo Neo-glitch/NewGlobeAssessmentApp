@@ -1,5 +1,6 @@
 package com.bridge.androidtechnicaltest.pupil.data.datasources.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -7,25 +8,26 @@ import androidx.room.Query
 import androidx.room.Upsert
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface PupilDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPupils(pupils: List<LocalPupil>): Completable
+    suspend fun insertPupils(pupils: List<LocalPupil>)
 
     @Upsert
-    fun upsertPupil(pupil: LocalPupil): Completable
+    suspend fun upsertPupil(pupil: LocalPupil)
 
     @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
-    fun getPupils(): Single<List<LocalPupil>>
+    suspend fun getPupils(): List<LocalPupil>
 
     @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
-    fun getPupilsFlowable(): Flowable<List<LocalPupil>>
+    fun getPupilsFlowable(): Flow<List<LocalPupil>>
+
+    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
+    fun getPupilsPagingSource(): PagingSource<Int, LocalPupil>
 
 //    @Query("SELECT * FROM Pupils ORDER BY name ASC")
 //    fun getPupils(): Single<List<LocalPupil>>
@@ -34,19 +36,22 @@ interface PupilDao {
 //    fun getPupilsFlowable(): Flowable<List<LocalPupil>>
 
     @Query("SELECT * FROM Pupils WHERE pupil_id = :pupilId")
-    fun getPupil(pupilId: Int): Single<LocalPupil>
+    suspend fun getPupil(pupilId: Int): LocalPupil
 
     @Query("DELETE FROM Pupils")
-    fun deleteAllPupils(): Completable
+    suspend fun deleteAllPupils()
+
+    @Query("DELETE FROM pupils WHERE sync_status = 'SYNCED'")
+    suspend fun deletePupilsWithSyncedStatus()
 
     @Query("DELETE FROM Pupils WHERE pupil_id = :pupilId")
-    fun deleteByPupilId(pupilId: Long): Completable
+    suspend fun deleteByPupilId(pupilId: Long)
 
     @Query("SELECT * FROM Pupils WHERE sync_status != 'SYNCED'")
-    fun getUnsyncedPupils(): Single<List<LocalPupil>>
+    suspend fun getUnsyncedPupils(): List<LocalPupil>
 
     @Query("SELECT * FROM Pupils WHERE sync_status = :status")
-    fun getPupilsBySyncStatus(status: SyncStatus): Single<List<LocalPupil>>
+    suspend fun getPupilsBySyncStatus(status: SyncStatus): List<LocalPupil>
 
 
 }

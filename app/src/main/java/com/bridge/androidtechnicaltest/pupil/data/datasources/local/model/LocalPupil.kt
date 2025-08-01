@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Pupils")
-class LocalPupil(
+data class LocalPupil(
     @PrimaryKey
     @ColumnInfo(name = "pupil_id")
     val pupilId: Int,

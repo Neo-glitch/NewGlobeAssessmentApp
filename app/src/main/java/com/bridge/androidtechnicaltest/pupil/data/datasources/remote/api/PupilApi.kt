@@ -16,17 +16,17 @@ import retrofit2.http.Query
 
 interface PupilApi {
     @GET(K.GET_PUPILS)
-    fun getPupils(@Query("page") page: Int = 1): Single<PupilsResponse>
+    suspend fun getPupils(@Query("page") page: Int = 1): PupilsResponse
 
     @GET(K.GET_PUPIL)
-    fun getPupil(@Path("pupilId") pupilId: Int): Single<RemotePupil>
+    suspend fun getPupil(@Path("pupilId") pupilId: Int): RemotePupil
 
     @POST(K.CREATE_PUPIL)
-    fun createPupil(@Body request: CreatePupilRequest): Single<RemotePupil>
+    suspend fun createPupil(@Body request: CreatePupilRequest): RemotePupil
 
     @PUT(K.UPDATE_PUPIL)
-    fun updatePupil(@Path("pupilId") pupilId: Int, @Body request: UpdatePupilRequest): Single<RemotePupil>
+    suspend fun updatePupil(@Path("pupilId") pupilId: Int, @Body request: UpdatePupilRequest): RemotePupil
 
     @DELETE(K.DELETE_PUPIL)
-    fun deletePupil(@Path("pupilId") pupilId: Int): Single<Unit>
+    suspend fun deletePupil(@Path("pupilId") pupilId: Int): Unit
 }

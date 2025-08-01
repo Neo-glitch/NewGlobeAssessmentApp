@@ -1,21 +1,26 @@
 package com.bridge.androidtechnicaltest.pupil.data.datasources.local
 
+import androidx.paging.PagingSource
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.PupilRemoteKeys
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 interface PupilLocalDataSource {
 
-    fun insertPupils(pupils: List<LocalPupil>): Completable
-    fun upsertPupil(pupil: LocalPupil): Completable
-    fun getPupils(): Single<List<LocalPupil>>
-    fun getPupilsFlowable(): Flowable<List<LocalPupil>>
-    fun getPupil(id: Int): Single<LocalPupil>
-    fun deleteAllPupils(): Completable
-    fun deleteByPupilId(pupilId: Long): Completable
-    fun getUnsyncedPupils(): Single<List<LocalPupil>>
-    fun getPupilsBySyncStatus(status: SyncStatus): Single<List<LocalPupil>>
+    suspend fun insertPupils(pupils: List<LocalPupil>)
+    suspend fun upsertPupil(pupil: LocalPupil)
+    suspend fun getPupils(): List<LocalPupil>
+    fun getPupilsFlowable(): Flow<List<LocalPupil>>
+    fun getPupilsPagingSource(): PagingSource<Int, LocalPupil>
+    suspend fun getPupil(id: Int): LocalPupil
+    suspend fun deleteAllPupils()
+    suspend fun deletePupilsWithSyncedStatus()
+    suspend fun deleteByPupilId(pupilId: Long)
+    suspend fun getUnsyncedPupils(): List<LocalPupil>
+    suspend fun getPupilsBySyncStatus(status: SyncStatus): List<LocalPupil>
+    suspend fun updateLocalMediatorData(isRefresh: Boolean, localPupils: List<LocalPupil>, page: Int, endOfPagination: Boolean)
 
+    // for remote keys
+    suspend fun getRemoteKeysByPublicId(id: Int): PupilRemoteKeys?
 }

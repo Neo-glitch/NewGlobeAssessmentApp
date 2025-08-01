@@ -8,6 +8,7 @@ import com.bridge.androidtechnicaltest.core.utils.K.SERVER_ERROR_MSG
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.Single
+import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import java.io.InterruptedIOException
 import java.net.SocketException
@@ -16,26 +17,36 @@ import java.net.UnknownHostException
 
 object NetworkHelper {
 
-    fun <T> handleApiCallRx(apiCall: () -> Single<T>): Single<Resource<T>> {
-        return apiCall()
-            .map<Resource<T>> { response ->
-                Resource.Success(response)
-//                if (response.isSuccessful) {
-//                    Res
-//                    val body = response.body()
-//                    body?.let { Resource.Success(response) } ?: Resource.Error(SERVER_ERROR_MSG)
-//                } else {
-//                    val errorMessage = getErrorMessage(response)
-//                    Resource.Error(errorMessage)
-//                }
-            }
-            .onErrorReturn { throwable ->
-                Resource.Error(getErrorMessage(throwable))
-            }
+//    fun <T> handleApiCallRx(apiCall: () -> Single<T>): Single<Resource<T>> {
+//        return apiCall()
+//            .map<Resource<T>> { response ->
+//                Resource.Success(response)
+////                if (response.isSuccessful) {
+////                    Res
+////                    val body = response.body()
+////                    body?.let { Resource.Success(response) } ?: Resource.Error(SERVER_ERROR_MSG)
+////                } else {
+////                    val errorMessage = getErrorMessage(response)
+////                    Resource.Error(errorMessage)
+////                }
+//            }
+//            .onErrorReturn { throwable ->
+//                Resource.Error(getErrorMessage(throwable))
+//            }
+//    }
+
+    suspend fun <T> handleApiCall(apiCall: suspend () -> T): Resource<T> {
+        return try {
+            val response = apiCall()
+            Resource.Success(response)
+        } catch (throwable: Throwable) {
+            Resource.Error(getErrorMessage(throwable))
+        }
     }
 
-    private fun getErrorMessage(throwable: Throwable): String {
+    fun getErrorMessage(throwable: Throwable): String {
         return when(throwable) {
+            is CancellationException -> throw throwable
             is HttpException -> {
                 when(val data = convertErrorBody<ErrorResponse>(throwable)) {
                     is ErrorResponse -> data.type

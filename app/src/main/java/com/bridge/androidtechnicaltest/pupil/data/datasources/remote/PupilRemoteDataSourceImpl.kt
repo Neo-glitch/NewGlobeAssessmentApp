@@ -7,35 +7,34 @@ import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.Creat
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.PupilsResponse
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.RemotePupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.UpdatePupilRequest
-import io.reactivex.Single
 
 class PupilRemoteDataSourceImpl(
     private val pupilApi: PupilApi
 ): PupilRemoteDataSource {
 
-    override fun getPupils(page: Int): Single<Resource<PupilsResponse>> {
-        return NetworkHelper.handleApiCallRx {
+    override suspend fun getPupils(page: Int): Resource<PupilsResponse> {
+        return NetworkHelper.handleApiCall {
             pupilApi.getPupils(page)
         }
     }
 
-    override fun getPupil(pupilId: Int): Single<Resource<RemotePupil>> {
-        return NetworkHelper.handleApiCallRx {
+    override suspend fun getPupil(pupilId: Int): Resource<RemotePupil> {
+        return NetworkHelper.handleApiCall {
             pupilApi.getPupil(pupilId)
         }
     }
 
-    override fun createPupil(request: CreatePupilRequest): Single<Resource<RemotePupil>> {
-        return NetworkHelper.handleApiCallRx {
+    override suspend fun createPupil(request: CreatePupilRequest): Resource<RemotePupil> {
+        return NetworkHelper.handleApiCall {
             pupilApi.createPupil(request)
         }
     }
 
-    override fun updatePupil(
+    override suspend fun updatePupil(
         pupilId: Int,
         request: UpdatePupilRequest
-    ): Single<Resource<RemotePupil>> {
-        return NetworkHelper.handleApiCallRx {
+    ): Resource<RemotePupil> {
+        return NetworkHelper.handleApiCall {
             pupilApi.updatePupil(
                 pupilId,
                 request
@@ -43,8 +42,8 @@ class PupilRemoteDataSourceImpl(
         }
     }
 
-    override fun deletePupil(pupilId: Int): Single<Resource<Unit>> {
-        return NetworkHelper.handleApiCallRx {
+    override suspend fun deletePupil(pupilId: Int): Resource<Unit> {
+        return NetworkHelper.handleApiCall {
             pupilApi.deletePupil(pupilId)
         }
     }

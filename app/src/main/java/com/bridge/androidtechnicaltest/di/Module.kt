@@ -45,7 +45,7 @@ val networkModule = module {
         Retrofit.Builder()
             .baseUrl(K.BASE_URL) // Replace with your actual base URL
             .client(get<OkHttpClient>())
-            .addCallAdapterFactory(get<RxJava2CallAdapterFactory>())
+//            .addCallAdapterFactory(get<RxJava2CallAdapterFactory>())
             .addConverterFactory(get<GsonConverterFactory>())
             .build()
     }

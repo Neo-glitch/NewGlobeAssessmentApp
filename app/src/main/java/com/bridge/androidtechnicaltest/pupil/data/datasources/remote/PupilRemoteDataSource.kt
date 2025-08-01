@@ -10,10 +10,10 @@ import io.reactivex.Single
 
 interface PupilRemoteDataSource {
 
-    fun getPupils(page: Int = 1): Single<Resource<PupilsResponse>>
-    fun getPupil(pupilId: Int): Single<Resource<RemotePupil>>
-    fun createPupil(request: CreatePupilRequest): Single<Resource<RemotePupil>>
-    fun updatePupil(pupilId: Int, request: UpdatePupilRequest): Single<Resource<RemotePupil>>
-    fun deletePupil(pupilId: Int): Single<Resource<Unit>>
+    suspend fun getPupils(page: Int = 1): Resource<PupilsResponse>
+    suspend fun getPupil(pupilId: Int): Resource<RemotePupil>
+    suspend fun createPupil(request: CreatePupilRequest): Resource<RemotePupil>
+    suspend fun updatePupil(pupilId: Int, request: UpdatePupilRequest): Resource<RemotePupil>
+    suspend fun deletePupil(pupilId: Int): Resource<Unit>
 
 }
