@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-def localProperties = new java.util.Properties()
+def localProperties = new Properties()
 def localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(localPropertiesFile.newInputStream())
@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.bridge.androidtechnicaltest"
-        minSdk 21
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -66,6 +66,7 @@ dependencies {
     def truth = "1.1.2"
     def robolectric = "4.14"
     def paging = "3.2.1"
+    def glide = "4.16.0"
 
     implementation "androidx.core:core-ktx:1.12.0"
     implementation "androidx.appcompat:appcompat:1.6.1"
@@ -114,6 +115,16 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
     implementation "io.github.muddz:styleabletoast:$styleableToast"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    // spinKit loader
+    implementation "com.github.ybq:Android-SpinKit:1.4.0"
+
+    // circle image view
+    implementation "de.hdodenhof:circleimageview:3.1.0"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

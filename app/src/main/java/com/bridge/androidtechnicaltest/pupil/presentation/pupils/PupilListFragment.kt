@@ -1,4 +1,4 @@
-package com.bridge.androidtechnicaltest.pupil.presentation.ui
+package com.bridge.androidtechnicaltest.pupil.presentation.pupils
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bridge.androidtechnicaltest.R
 
-class AddEditPupilDetailFragment : Fragment() {
+class PupilListFragment : Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_pupildetail, container, false)
+        val view = inflater.inflate(R.layout.fragment_pupillist, container, false)
+        return view
     }
 }

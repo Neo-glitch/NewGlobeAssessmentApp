@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/pupilListFragment"
-        android:name="com.bridge.androidtechnicaltest.pupil.presentation.ui.PupilListFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.pupils.PupilListFragment"
         android:label="PupilListFragment" >
         <action
             android:id="@+id/action_pupilListFragment_to_pupilDetailFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/pupilDetailFragment"
-        android:name="com.bridge.androidtechnicaltest.pupil.presentation.ui.PupilDetailFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.pupil_detail.PupilDetailFragment"
         android:label="PupilDetailFragment" >
         <action
             android:id="@+id/action_pupilDetailFragment_to_addEditPupilDetailFragment"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/addEditPupilDetailFragment"
-        android:name="com.bridge.androidtechnicaltest.pupil.presentation.ui.AddEditPupilDetailFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil.AddEditPupilDetailFragment"
         android:label="AddEditPupilDetailFragment" >
         <argument
             android:name="pupilId"

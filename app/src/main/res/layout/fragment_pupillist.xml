@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/pupil_list"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent">
 
-</LinearLayout>
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/tool_bar"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:elevation="1dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:title="@string/app_name" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/pupil_list"
+			tools:listitem="@layout/item_pupil"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/tool_bar"/>
+
+		<com.github.ybq.android.spinkit.SpinKitView
+			android:id="@+id/progress_loader"
+			style="@style/SpinKitView.Large.FoldingCube"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:visibility="gone"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/tool_bar"
+			app:SpinKit_Color="@color/bridge_green_primary" />
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/add_pupil_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:clickable="true"
+            android:contentDescription="@string/add_pupil"
+            app:layout_constraintEnd_toEndOf="parent"
+			app:srcCompat="@drawable/ic_add"
+			android:tint="@color/white"
+			app:backgroundTint="@color/bridge_text_secondary"
+			app:layout_constraintBottom_toBottomOf="parent"
+			android:layout_marginBottom="20dp"
+			android:layout_marginEnd="20dp"/>
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

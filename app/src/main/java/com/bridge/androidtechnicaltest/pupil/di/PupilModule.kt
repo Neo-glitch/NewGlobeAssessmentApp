@@ -8,10 +8,12 @@ import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemote
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemoteDataSourceImpl
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.api.PupilApi
 import com.bridge.androidtechnicaltest.pupil.data.repository.PupilRepositoryImpl
+import com.bridge.androidtechnicaltest.pupil.data.worker.PupilSyncWorker
 import com.bridge.androidtechnicaltest.pupil.domain.repository.PupilRepository
-import com.bridge.androidtechnicaltest.pupil.presentation.AddEditPupilViewModel
-import com.bridge.androidtechnicaltest.pupil.presentation.PupilDetailViewModel
-import com.bridge.androidtechnicaltest.pupil.presentation.PupilListViewModel
+import com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil.AddEditPupilViewModel
+import com.bridge.androidtechnicaltest.pupil.presentation.pupil_detail.PupilDetailViewModel
+import com.bridge.androidtechnicaltest.pupil.presentation.pupils.PupilListViewModel
+import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
@@ -19,6 +21,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val pupilModule = module {
+    workerOf(::PupilSyncWorker)
     single<PupilDao>{ get<AppDatabase>().pupilDao }
     single<PupilApi>{ get<Retrofit>().create(PupilApi::class.java)}
 

@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="white">#FFFFFFFF</color>
-	<color name="colorPrimary">#3F51B5</color>
-	<color name="colorPrimaryDark">#303F9F</color>
-	<color name="colorAccent">#FF4081</color>
-	<color name="error">#A31300</color>
-	<color name="neutral">#FFFFFF</color>
-	<color name="neutral1">#FAFAFA</color>
-	<color name="neutral2">#E2E9F0</color>
+<!--	<color name="colorPrimary">#3F51B5</color>-->
+<!--	<color name="colorPrimaryDark">#303F9F</color>-->
+<!--	<color name="colorAccent">#FF4081</color>-->
+<!--	<color name="error">#A31300</color>-->
+<!--	<color name="neutral">#FFFFFF</color>-->
+<!--	<color name="neutral1">#FAFAFA</color>-->
+<!--	<color name="neutral2">#E2E9F0</color>-->
+
+	<!-- Primary Brand Colors -->
+	<color name="bridge_green_primary">#7CB342</color>
+	<color name="bridge_green_darker">#558B2F</color>
+	<color name="bridge_green_light">#AED581</color>
+	<color name="bridge_green_dark">#558B2F</color>
+
+	<!-- Secondary Colors -->
+	<color name="bridge_accent">#4CAF50</color>
+	<color name="bridge_accent_light">#81C784</color>
+
+	<!-- Background Colors -->
+	<color name="bridge_background">#FAFAFA</color>
+	<color name="bridge_surface">#FFFFFF</color>
+	<color name="bridge_surface_variant">#E8F5E8</color>
+
+	<!-- Text Colors -->
+	<color name="bridge_text_primary">#1B5E20</color>
+	<color name="bridge_text_secondary">#2E7D32</color>
+	<color name="bridge_text_on_primary">#FFFFFF</color>
+
+	<!-- Error and Status -->
+	<color name="bridge_error">#D32F2F</color>
+	<color name="bridge_success">#388E3C</color>
+	<color name="bridge_warning">#F57C00</color>
 </resources>

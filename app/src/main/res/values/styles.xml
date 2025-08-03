@@ -1,16 +1,139 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<!-- Customize your theme here. -->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
+<!--		<item name="colorPrimary">@color/colorPrimary</item>-->
+<!--		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--		<item name="colorAccent">@color/colorAccent</item>-->
+		<!-- Primary brand color -->
+		<item name="colorPrimary">@color/bridge_green_primary</item>
+		<item name="colorPrimaryDark">@color/bridge_green_darker</item>
+		<item name="colorOnPrimary">@color/bridge_text_on_primary</item>
+<!--		<item name="colorPrimaryContainer">@color/bridge_green_light</item>-->
+<!--		<item name="colorOnPrimaryContainer">@color/bridge_text_primary</item>-->
+
+		<!-- Secondary brand color -->
+		<item name="colorSecondary">@color/bridge_accent</item>
+		<item name="colorOnSecondary">@color/bridge_text_on_primary</item>
+<!--		<item name="colorSecondaryContainer">@color/bridge_accent_light</item>-->
+<!--		<item name="colorOnSecondaryContainer">@color/bridge_text_primary</item>-->
+
+		<!-- Background colors -->
+		<item name="android:colorBackground">@color/bridge_background</item>
+		<item name="colorOnBackground">@color/bridge_text_primary</item>
+		<item name="colorSurface">@color/bridge_surface</item>
+		<item name="colorOnSurface">@color/bridge_text_primary</item>
+<!--		<item name="colorSurfaceVariant">@color/bridge_surface_variant</item>-->
+<!--		<item name="colorOnSurfaceVariant">@color/bridge_text_secondary</item>-->
+
+		<!-- Error color -->
+		<item name="colorError">@color/bridge_error</item>
+		<item name="colorOnError">@color/bridge_text_on_primary</item>
+
+		<item name="android:windowLightStatusBar">true</item>
 	</style>
 
-	<style name="TextDetail" parent="TextAppearance.AppCompat.Medium">
-
+	<!-- Header Styles -->
+	<style name="Bridge.TextAppearance.Headline1" parent="TextAppearance.Material3.HeadlineLarge">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">32sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
 	</style>
+
+	<style name="Bridge.TextAppearance.Headline2" parent="TextAppearance.Material3.HeadlineMedium">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">24sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
+	</style>
+
+	<!-- Body Text -->
+	<style name="Bridge.TextAppearance.Body1" parent="TextAppearance.Material3.BodyLarge">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:lineSpacingExtra">4dp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Body2" parent="TextAppearance.Material3.BodyMedium">
+		<item name="android:textColor">@color/bridge_text_secondary</item>
+		<item name="android:textSize">14sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal" parent="TextAppearance.Material3.BodyMedium">
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:lineSpacingExtra">2dp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Small" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textSize">12sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Large" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Bold" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<!-- Button Text -->
+	<style name="Bridge.TextAppearance.Button" parent="TextAppearance.Material3.LabelLarge">
+		<item name="android:textColor">@color/bridge_text_on_primary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
+		<item name="android:textAllCaps">false</item>
+	</style>
+
+	<!-- Primary Button -->
+	<style name="Bridge.Button.Primary" parent="ThemeOverlay.Material3.Button">
+<!--		<item name="android:background">@drawable/bg_border_8dp</item>-->
+<!--		<item name="android:background">@color/bridge_green_dark</item>-->
+		<item name="android:backgroundTint">@color/bridge_green_primary</item>
+		<item name="android:textAppearance">@style/Bridge.TextAppearance.Button</item>
+		<item name="android:cornerRadius">8dp</item>
+		<item name="android:paddingVertical">8dp</item>
+		<item name="android:gravity">center</item>
+		<item name="android:paddingHorizontal">24dp</item>
+	</style>
+
+	<!-- Secondary Button -->
+	<style name="Bridge.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+		<item name="strokeColor">@color/bridge_green_primary</item>
+		<item name="android:textColor">@color/bridge_green_primary</item>
+		<item name="cornerRadius">8dp</item>
+		<item name="android:paddingVertical">8dp</item>
+	</style>
+
+	<!-- Text Button -->
+	<style name="Bridge.Button.Text" parent="Widget.Material3.Button.TextButton">
+		<item name="android:textColor">@color/bridge_green_primary</item>
+		<item name="cornerRadius">8dp</item>
+	</style>
+
+	<style name="Bridge.Card" parent="Widget.Material3.CardView.Elevated">
+		<item name="cardCornerRadius">12dp</item>
+		<item name="cardElevation">4dp</item>
+		<item name="cardBackgroundColor">@color/bridge_surface</item>
+		<item name="android:layout_margin">8dp</item>
+	</style>
+
+	<style name="Bridge.Card.Pupil" parent="Bridge.Card">
+		<item name="strokeColor">@color/bridge_green_light</item>
+		<item name="strokeWidth">1dp</item>
+	</style>
+
+	<style name="Bridge.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+		<item name="boxStrokeColor">@color/bridge_green_primary</item>
+		<item name="hintTextColor">@color/bridge_text_secondary</item>
+		<item name="android:textColorHint">@color/bridge_text_secondary</item>
+		<item name="boxCornerRadiusTopStart">8dp</item>
+		<item name="boxCornerRadiusTopEnd">8dp</item>
+		<item name="boxCornerRadiusBottomStart">8dp</item>
+		<item name="boxCornerRadiusBottomEnd">8dp</item>
+	</style>
+
+	<style name="TextDetail" parent="TextAppearance.AppCompat.Medium"></style>
 
 	<style name="ToastStyle" >
 		<item name="stTextColor">@color/white</item>
@@ -20,5 +143,7 @@
 		<item name="stLength">LONG</item>
 		<item name="stRadius">10dp</item>
 	</style>
+
+
 
 </resources>
