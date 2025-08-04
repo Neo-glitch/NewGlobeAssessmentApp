@@ -24,7 +24,7 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dispatchTouchEvent(view)
+//        dispatchTouchEvent(view)
     }
 
     fun showSuccessToast(

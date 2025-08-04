@@ -1,7 +1,18 @@
 package com.bridge.androidtechnicaltest.pupil.presentation.pupils
 
+import androidx.paging.PagingData
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 
 data class PupilListUiState(
-    val pupilEntity: PupilEntity
+    val data: PagingData<PupilEntity> = PagingData.empty(),
+    val loadState: PupilsLoadState = PupilsLoadState.Idle
 )
+
+sealed class PupilsLoadState {
+    object Idle: PupilsLoadState()
+    object Empty: PupilsLoadState()
+    object Success: PupilsLoadState()
+    object Error: PupilsLoadState()
+    object Loading: PupilsLoadState()
+    object Refreshing: PupilsLoadState()
+}

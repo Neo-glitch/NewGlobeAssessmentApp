@@ -1,7 +1,7 @@
 <resources>
 
 	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
 		<!-- Customize your theme here. -->
 <!--		<item name="colorPrimary">@color/colorPrimary</item>-->
 <!--		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
@@ -86,12 +86,12 @@
 	</style>
 
 	<!-- Primary Button -->
-	<style name="Bridge.Button.Primary" parent="ThemeOverlay.Material3.Button">
+	<style name="Bridge.Button.Primary" parent="Widget.Material3.Button">
 <!--		<item name="android:background">@drawable/bg_border_8dp</item>-->
 <!--		<item name="android:background">@color/bridge_green_dark</item>-->
 		<item name="android:backgroundTint">@color/bridge_green_primary</item>
 		<item name="android:textAppearance">@style/Bridge.TextAppearance.Button</item>
-		<item name="android:cornerRadius">8dp</item>
+		<item name="cornerRadius">8dp</item>
 		<item name="android:paddingVertical">8dp</item>
 		<item name="android:gravity">center</item>
 		<item name="android:minHeight">48dp</item>
@@ -125,18 +125,18 @@
 	</style>
 
 	<style name="Bridge.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-		<item name="boxStrokeColor">@color/bridge_green_primary</item>
 		<item name="hintTextColor">@color/bridge_text_secondary</item>
-		<item name="android:textColorHint">@color/bridge_text_secondary</item>
+		<item name="android:textColorHint">@color/bridge_grey_200</item>
 		<item name="boxCornerRadiusTopStart">8dp</item>
 		<item name="boxCornerRadiusTopEnd">8dp</item>
+		<item name="boxBackgroundColor">@color/white</item>
 		<item name="boxCornerRadiusBottomStart">8dp</item>
 		<item name="boxCornerRadiusBottomEnd">8dp</item>
 	</style>
 
 	<style name="TextDetail" parent="TextAppearance.AppCompat.Medium"></style>
 
-	<style name="ToastStyle.Warning">
+	<style name="WarningToast">
 		<item name="stTextColor">@color/white</item>
 		<item name="stTextSize">14sp</item>
 		<item name="stColorBackground">@color/bridge_warning</item>
@@ -145,7 +145,7 @@
 		<item name="stRadius">12dp</item>
 	</style>
 
-	<style name="ToastStyle.Success" >
+	<style name="SuccessToast" >
 		<item name="stTextColor">@color/white</item>
 		<item name="stTextSize">14sp</item>
 		<item name="stColorBackground">@color/bridge_success</item>
@@ -154,7 +154,7 @@
 		<item name="stRadius">12dp</item>
 	</style>
 
-	<style name="ToastStyle.Error" >
+	<style name="ErrorToast" >
 		<item name="stTextColor">@color/white</item>
 		<item name="stTextSize">14sp</item>
 		<item name="stColorBackground">@color/bridge_error</item>
@@ -172,8 +172,14 @@
 		<item name="android:dialogPreferenceStyle">@drawable/bg_borderless_12dp</item>
 	</style>
 
-	<style name="Bridge.BottomSheet" parent="Widget.Design.BottomSheet.Modal">
-		<item name="background">@drawable/bg_top_left_right_20dp</item>
+	<style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+		<item name="bottomSheetStyle">@style/Bridge.BottomSheetStyle</item>
+		<item name="android:windowIsFloating">false</item>
+		<item name="android:windowSoftInputMode">adjustResize</item>
+	</style>
+
+	<style name="Bridge.BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+		<item name="android:background">@drawable/bg_top_left_right_20dp</item>
 	</style>
 
 

@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import com.bridge.androidtechnicaltest.R
-import com.bridge.androidtechnicaltest.databinding.LayoutDialogAlertBinding
+import com.bridge.androidtechnicaltest.databinding.LayoutSingleActionDialogAlertBinding
 
-class DialogAlert {
+class SingleActionDialogAlert {
 
     fun prompt(
         context: Context,
@@ -20,9 +20,9 @@ class DialogAlert {
         onCancel: () -> Unit = {},
         onButtonClicked: (Dialog) -> Unit = {}
     ) : Dialog {
-        val binding = DataBindingUtil.inflate<LayoutDialogAlertBinding>(
+        val binding = DataBindingUtil.inflate<LayoutSingleActionDialogAlertBinding>(
             LayoutInflater.from(context),
-            R.layout.layout_dialog_alert,
+            R.layout.layout_single_action_dialog_alert,
             null,
             false
         )

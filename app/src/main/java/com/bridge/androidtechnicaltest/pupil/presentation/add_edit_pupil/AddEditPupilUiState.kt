@@ -10,17 +10,12 @@ data class AddEditPupilUiState(
 )
 
 sealed class AddEditPupilOutput {
-    data object onEditSuccess : AddEditPupilOutput()
-    data object onDeleteSuccess : AddEditPupilOutput()
-    data object onAddSuccess : AddEditPupilOutput()
-    data object onEditError : AddEditPupilOutput()
-    data object onDeleteError : AddEditPupilOutput()
-    data object onAddError : AddEditPupilOutput()
+    data object OnLocationError : AddEditPupilOutput()
+    data object OnEditSuccess : AddEditPupilOutput()
 }
 
 sealed class AddEditLoadState {
     object Idle: AddEditLoadState()
-    object Success: AddEditLoadState()
-    object Error: AddEditLoadState()
+    object Loaded: AddEditLoadState()
     object Loading: AddEditLoadState()
 }

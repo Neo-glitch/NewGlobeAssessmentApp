@@ -18,4 +18,6 @@
     <string name="edit_image_icon">edit image icon</string>
     <string name="save">Save</string>
     <string name="continue_label">Continue</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="back_label">back</string>
 </resources>

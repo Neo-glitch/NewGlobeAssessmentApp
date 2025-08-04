@@ -25,7 +25,7 @@
 	<color name="bridge_surface_variant">#E8F5E8</color>
 
 	<!-- Text Colors -->
-	<color name="bridge_text_primary">#1B5E20</color>
+	<color name="bridge_text_primary">#000000</color>
 	<color name="bridge_text_secondary">#2E7D32</color>
 	<color name="bridge_text_on_primary">#FFFFFF</color>
 
@@ -35,5 +35,6 @@
 	<color name="bridge_warning">#F57C00</color>
 
 	<color name="bridge_grey_100">#E2E9F0</color>
+	<color name="bridge_grey_200">#5C6F75</color>
 	<color name="transparent">#00000000</color>
 </resources>

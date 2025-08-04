@@ -8,6 +8,7 @@
         android:id="@+id/pupilListFragment"
         android:name="com.bridge.androidtechnicaltest.pupil.presentation.pupils.PupilListFragment"
         android:label="PupilListFragment" >
+
         <action
             android:id="@+id/action_pupilListFragment_to_pupilDetailFragment"
             app:destination="@id/pupilDetailFragment" />
@@ -24,7 +25,8 @@
             app:destination="@id/addEditPupilDetailFragment" />
         <argument
             android:name="pupilId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
     <fragment
         android:id="@+id/addEditPupilDetailFragment"
@@ -32,6 +34,7 @@
         android:label="AddEditPupilDetailFragment" >
         <argument
             android:name="pupilId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
 </navigation>

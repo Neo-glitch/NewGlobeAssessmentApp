@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.core.BaseBottomSheetFragment
 import com.bridge.androidtechnicaltest.core.presentation.RecyclerViewItemSpaceDecorator
 import com.bridge.androidtechnicaltest.core.presentation.model.ImageSourceType
 import com.bridge.androidtechnicaltest.core.presentation.adapter.ImageSourceAdapter
+import com.bridge.androidtechnicaltest.core.presentation.model.ImageSource
 import com.bridge.androidtechnicaltest.core.utils.toPx
 import com.bridge.androidtechnicaltest.databinding.BottomsheetImageSourceBinding
 
@@ -57,6 +59,12 @@ class ImageSourceBottomSheet: BaseBottomSheetFragment<BottomsheetImageSourceBind
             )
 
             imageSourceList.adapter = imageSourceAdapter
+            imageSourceAdapter.submitList(
+                listOf(
+                    ImageSource(R.drawable.ic_gallery, description = "Select Image from Gallery", sourceType = ImageSourceType.Gallery),
+                    ImageSource(R.drawable.ic_camera, description = "Take a picture", sourceType = ImageSourceType.Camera)
+                )
+            )
             imageSourceList.addItemDecoration(RecyclerViewItemSpaceDecorator(verticalSpacing = 16.toPx))
         }
     }

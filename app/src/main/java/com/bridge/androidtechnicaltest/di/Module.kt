@@ -6,7 +6,9 @@ import com.bridge.androidtechnicaltest.core.network.NetworkConnectionInterceptor
 import com.bridge.androidtechnicaltest.core.network.RequestInterceptor
 import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.K.API_TIMEOUT
+import com.bridge.androidtechnicaltest.core.utils.LocationHelper
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -15,6 +17,10 @@ import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
     single { DatabaseFactory.getDBInstance(get()) }
+}
+
+val locationModule = module {
+    factory { LocationHelper(androidContext()) }
 }
 
 val networkModule = module {

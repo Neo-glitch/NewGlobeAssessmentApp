@@ -2,10 +2,7 @@ package com.bridge.androidtechnicaltest.core.utils
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -14,10 +11,8 @@ import com.bridge.androidtechnicaltest.R
 import com.bumptech.glide.Glide
 import io.github.muddz.styleabletoast.StyleableToast
 import androidx.core.net.toUri
-import androidx.databinding.DataBindingUtil
-import com.bridge.androidtechnicaltest.databinding.LayoutDialogAlertBinding
 import java.io.File
-import androidx.core.graphics.drawable.toDrawable
+import java.util.Locale
 
 fun View.hide(invisible: Boolean = false) {
     visibility = if (invisible) View.INVISIBLE else View.GONE
@@ -44,18 +39,21 @@ fun View.enable(enable: Boolean) {
 }
 
 fun Fragment.showSuccessToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    StyleableToast.makeText(this.requireContext(), message, duration, R.style.ToastStyle_Success).show()
+    StyleableToast.makeText(this.requireContext(), message, duration, R.style.SuccessToast)
+        .show()
 }
 
 fun Fragment.showErrorToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    StyleableToast.makeText(this.requireContext(), message, duration, R.style.ToastStyle_Error).show()
+    StyleableToast.makeText(this.requireContext(), message, duration, R.style.ErrorToast)
+        .show()
 }
 
 fun Fragment.showWarningToastMessage(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    StyleableToast.makeText(this.requireContext(), message, duration, R.style.ToastStyle_Warning).show()
+    StyleableToast.makeText(this.requireContext(), message, duration, R.style.WarningToast)
+        .show()
 }
 
-fun Context.showDialogAlert(
+fun Context.showSingleDialogAlert(
     title: String,
     content: String?,
     buttonText: String? = null,
@@ -65,7 +63,7 @@ fun Context.showDialogAlert(
 ) {
     if (content.isNullOrBlank()) return
 
-    DialogAlert().prompt(
+    SingleActionDialogAlert().prompt(
         context = this,
         title = title,
         content = content,
@@ -73,6 +71,30 @@ fun Context.showDialogAlert(
         cancellable = cancellable,
         onCancel = onCancel,
         onButtonClicked = onButtonClicked
+    ).show()
+}
+
+fun Context.showDoubleDialogAlert(
+    title: String,
+    content: String?,
+    primaryButtonText: String? = null,
+    secondaryButtonText: String? = null,
+    cancellable: Boolean = false,
+    onCancel: () -> Unit = {},
+    onPrimaryButtonClicked: (Dialog) -> Unit = {},
+    onSecondaryButtonClicked: (Dialog) -> Unit = {}
+) {
+    if (content.isNullOrBlank()) return
+    DoubleActionDialogAlert().prompt(
+        context = this,
+        title = title,
+        content = content,
+        primaryButtonText = primaryButtonText ?: getString(R.string.continue_label),
+        secondaryButtonText = secondaryButtonText ?: getString(R.string.cancel_label),
+        cancellable = cancellable,
+        onCancel = onCancel,
+        onPrimaryButtonClicked = onPrimaryButtonClicked,
+        onSecondaryButtonClicked = onSecondaryButtonClicked
     ).show()
 }
 
@@ -86,7 +108,7 @@ fun ImageView.loadImage(
         return
     }
 
-    val imageUri = if (image.startsWith("http")) {
+    val imageUri = if (image.isRemoteImage()) {
         image.toUri()
     } else {
         File(image).let { file ->
@@ -100,3 +122,4 @@ fun ImageView.loadImage(
         .error(errorImageRes)
         .into(this)
 }
+

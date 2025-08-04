@@ -8,17 +8,45 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-		<com.google.android.material.appbar.MaterialToolbar
+		<androidx.constraintlayout.widget.ConstraintLayout
 			android:id="@+id/tool_bar"
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"
-			android:elevation="1dp"
-			app:title="@string/pupil_details"
-			app:navigationIcon="@drawable/ic_back"
+			android:background="@color/white"
+			android:elevation="4dp"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/btn_back"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:paddingVertical="12dp"
+				android:contentDescription="back"
+				android:src="@drawable/ic_back"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<TextView
+				android:id="@+id/title"
+				style="@style/Bridge.TextAppearance.Normal.Large"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="20dp"
+				android:gravity="center_vertical"
+				android:text="@string/pupil_details"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="@id/btn_back"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@id/btn_back"
+				app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
 		<com.github.ybq.android.spinkit.SpinKitView
 			android:id="@+id/progress_loader"
