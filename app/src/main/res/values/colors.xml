@@ -33,4 +33,7 @@
 	<color name="bridge_error">#D32F2F</color>
 	<color name="bridge_success">#388E3C</color>
 	<color name="bridge_warning">#F57C00</color>
+
+	<color name="bridge_grey_100">#E2E9F0</color>
+	<color name="transparent">#00000000</color>
 </resources>

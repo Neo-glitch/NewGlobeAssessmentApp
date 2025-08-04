@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Technical Test</string>
+    <string name="app_name">Bridge</string>
 
     <string name="pupil_detail_id">Id</string>
     <string name="pupil_detail_name">Name</string>
@@ -8,10 +8,14 @@
 
     <string name="data_reset">Api Data Reset</string>
     <string name="data_reset_failed">Data Reset Failed</string>
+
     <string name="pupil_image">pupil image</string>
     <string name="add_pupil">add pupil</string>
     <string name="pupil_details">Pupil Details</string>
     <string name="name">Name</string>
     <string name="country">Country</string>
     <string name="edit_pupil_details">Edit Pupil Details</string>
+    <string name="edit_image_icon">edit image icon</string>
+    <string name="save">Save</string>
+    <string name="continue_label">Continue</string>
 </resources>

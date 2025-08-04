@@ -1,5 +1,7 @@
 package com.bridge.androidtechnicaltest.core.utils
 
+import android.content.res.Resources
+import android.util.TypedValue
 import kotlin.random.Random
 
 val Long?.orZero
@@ -19,5 +21,12 @@ val Boolean?.orFalse
 
 val String?.orEmpty
     get() = this ?: ""
+
+val Number.toPx
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    ).toInt()
 
 fun generateRandomInt() : Int = Random.nextInt(1_000_000, Int.MAX_VALUE)

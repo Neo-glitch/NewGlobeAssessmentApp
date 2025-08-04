@@ -94,6 +94,7 @@
 		<item name="android:cornerRadius">8dp</item>
 		<item name="android:paddingVertical">8dp</item>
 		<item name="android:gravity">center</item>
+		<item name="android:minHeight">48dp</item>
 		<item name="android:paddingHorizontal">24dp</item>
 	</style>
 
@@ -135,13 +136,44 @@
 
 	<style name="TextDetail" parent="TextAppearance.AppCompat.Medium"></style>
 
-	<style name="ToastStyle" >
+	<style name="ToastStyle.Warning">
 		<item name="stTextColor">@color/white</item>
-		<item name="stTextSize">13sp</item>
-		<item name="stColorBackground">#CCA31300</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_warning</item>
 		<item name="stSolidBackground">false</item>
 		<item name="stLength">LONG</item>
-		<item name="stRadius">10dp</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="ToastStyle.Success" >
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_success</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="ToastStyle.Error" >
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_error</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="Bridge.Dialog" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
+		<item name="android:background">@drawable/bg_borderless_12dp</item>
+		<item name="android:fitsSystemWindows">false</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:backgroundDimAmount">0.4</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:dialogPreferenceStyle">@drawable/bg_borderless_12dp</item>
+	</style>
+
+	<style name="Bridge.BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+		<item name="background">@drawable/bg_top_left_right_20dp</item>
 	</style>
 
 

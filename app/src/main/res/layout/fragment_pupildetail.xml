@@ -11,7 +11,7 @@
 		<com.google.android.material.appbar.MaterialToolbar
 			android:id="@+id/tool_bar"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="?attr/actionBarSize"
 			android:elevation="1dp"
 			app:title="@string/pupil_details"
 			app:navigationIcon="@drawable/ic_back"

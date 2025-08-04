@@ -1,61 +1,41 @@
 package com.bridge.androidtechnicaltest.core
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.bridge.androidtechnicaltest.core.utils.KeyboardUtil
+import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.core.utils.printDebugStackTrace
-import com.bridge.androidtechnicaltest.core.utils.showErrorToastMessage
-import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
-import com.bridge.androidtechnicaltest.core.utils.showWarningToastMessage
 
-abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDispatcher, BaseViewBinder<VB> by BaseViewBindingImpl() {
+abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment(),
+    FragmentNavigationDispatcher, BaseViewBinder<VB> by BaseViewBindingImpl() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dispatchTouchEvent(view)
+        setBehaviour(true)
     }
 
-    fun showSuccessToast(
-        msg: String,
-        duration: Int = Toast.LENGTH_LONG
-    ) {
-        showSuccessToastMessage(msg, duration)
-    }
-
-    fun showErrorToast(
-        msg: String,
-        duration: Int = Toast.LENGTH_LONG
-    ) {
-        showErrorToastMessage(msg, duration)
-    }
-
-    fun showWarningToast(
-        msg: String,
-        duration: Int = Toast.LENGTH_LONG
-    ) {
-        showWarningToastMessage(msg, duration)
+    protected open fun setBehaviour(isCancellable: Boolean = true, fillScreen: Boolean = false) {
+        isCancelable = isCancellable
     }
 
     override fun navigate(deepLinks: String) {
         try {
-            val uri = deepLinks.toUri()
-            val requestBuilder = NavDeepLinkRequest.Builder.fromUri(uri)
-            val request = requestBuilder.build()
+            val request = NavDeepLinkRequest.Builder.fromUri(deepLinks.toUri())
+                .build()
 
             val navOptions =
-                NavOptions.Builder().build()
+                NavOptions.Builder()
+                    .build()
 
             findNavController().navigate(request, navOptions)
         } catch (ex: Exception) {
@@ -65,7 +45,7 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDis
 
     override fun navigate(destination: NavDirections, bundle: Bundle?, navOptions: NavOptions?) {
         try {
-            findNavController().navigate(destination.actionId, bundle, navOptions)
+            findNavController().navigate(destination.actionId, bundle)
         } catch (ex: Exception) {
             ex.printDebugStackTrace()
         }
@@ -108,21 +88,14 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDis
         findNavController().navigateUp()
     }
 
-    private fun dispatchTouchEvent(view: View) {
-        if (view !is EditText && view !is ImageButton) {
-            try {
-                view.setOnClickListener {
-                    KeyboardUtil.hide(requireActivity(), view)
-                }
-            } catch (_: Exception) {
-            }
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.Bridge_Dialog)
+    }
 
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                val innerView = view.getChildAt(i)
-                dispatchTouchEvent(innerView)
-            }
-        }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        return dialog
     }
 }

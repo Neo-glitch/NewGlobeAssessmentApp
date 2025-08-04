@@ -3,10 +3,10 @@ package com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 
 data class AddEditPupilUiState(
-    val loadState: AddEditLoadState,
-    val name: String,
-    val country: String,
-    val imageUri: String
+    val loadState: AddEditLoadState = AddEditLoadState.Idle,
+    val name: String = "",
+    val country: String = "",
+    val image: String = ""
 )
 
 sealed class AddEditPupilOutput {
