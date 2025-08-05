@@ -63,27 +63,5 @@ class PupilRemoteMediator(
             val errorMessage = GeneralExceptionHandler.getErrorMessage(t)
             MediatorResult.Error(Exception(errorMessage))
         }
-
-//        val response = remoteDataSource.getPupils(page)
-//        return when (response) {
-//            is Resource.Error -> MediatorResult.Error(Exception(response.message))
-//            is Resource.Success -> {
-//                val pupilsResponse = response.data
-//
-//                val localPupils = pupilsResponse.items.orEmpty().map { remotePupil ->
-//                    remotePupil.toLocal()
-//                }
-//                val endOfPagination = pupilsResponse.pageNumber >= pupilsResponse.totalPages
-//
-//                localDataSource.updateLocalMediatorData(
-//                    isRefresh = loadType == LoadType.REFRESH,
-//                    localPupils = localPupils,
-//                    page = page,
-//                    endOfPagination = endOfPagination
-//                )
-//
-//                MediatorResult.Success(endOfPaginationReached = endOfPagination)
-//            }
-//        }
     }
 }

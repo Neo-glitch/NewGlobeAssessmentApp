@@ -21,7 +21,7 @@ class PupilsAdapter(
                 oldItem: PupilEntity,
                 newItem: PupilEntity
             ): Boolean {
-                return oldItem.id == newItem.id && oldItem.name == newItem.name
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(

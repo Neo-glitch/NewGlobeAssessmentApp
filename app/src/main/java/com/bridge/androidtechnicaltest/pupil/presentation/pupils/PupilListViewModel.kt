@@ -19,20 +19,29 @@ class PupilListViewModel(
     private val _uiState = MutableStateFlow(PupilListUiState())
     val uiState = _uiState.asStateFlow()
 
+    val pupils = getPupilsUseCase().cachedIn(viewModelScope)
+
     init {
         loadPupils()
     }
 
     private fun loadPupils() {
-        viewModelScope.launch {
-            getPupilsUseCase()
-                .cachedIn(viewModelScope)
-                .collectLatest { data ->
-                    _uiState.update {
-                        it.copy(data = data)
-                    }
-                }
-        }
+//        val pupils =
+//        _uiState.update {
+//            it.copy(data = getPupilsUseCase()
+//                .cachedIn(viewModelScope)
+//            )
+//        }
+
+//        viewModelScope.launch {
+//            getPupilsUseCase()
+//                .cachedIn(viewModelScope)
+//                .collectLatest { data ->
+//                    _uiState.update {
+//                        it.copy(data = data)
+//                    }
+//                }
+//        }
     }
 
     fun onLoadStateChanged(

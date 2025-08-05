@@ -53,8 +53,17 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
     private fun observeUi() {
         launchScope {
             launch {
-                viewModel.uiState.collect { state ->
-                    pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = state.data)
+                viewModel.pupils.collectLatest {
+                    pupilsAdapter.submitData(pagingData = it)
+                }
+            }
+
+            launch {
+                viewModel.uiState.collectLatest { state ->
+//                    state.data.collectLatest {
+//                        pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = it)
+//                    }
+
 
                     when (state.loadState) {
                         PupilsLoadState.Empty -> handleEmptyState()
@@ -66,9 +75,16 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
                     }
                 }
             }
+
             launch {
                 pupilsAdapter.loadStateFlow.collectLatest { loadStates ->
                     viewModel.onLoadStateChanged(loadStates = loadStates, itemCount = pupilsAdapter.itemCount)
+                }
+            }
+
+            launch {
+                viewModel.pupils.collectLatest {
+                    pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = it)
                 }
             }
         }

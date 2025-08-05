@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus

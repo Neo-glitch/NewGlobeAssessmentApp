@@ -2,9 +2,10 @@ package com.bridge.androidtechnicaltest.pupil.presentation.pupils
 
 import androidx.paging.PagingData
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 data class PupilListUiState(
-    val data: PagingData<PupilEntity> = PagingData.empty(),
     val loadState: PupilsLoadState = PupilsLoadState.Idle
 )
 

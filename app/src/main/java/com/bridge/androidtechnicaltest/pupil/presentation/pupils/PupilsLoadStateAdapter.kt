@@ -36,12 +36,7 @@ class PupilsLoadStateAdapter(
         fun bind(loadState: LoadState){
             binding.apply {
                 loadStateProgress.visible(loadState is LoadState.Loading)
-                loadStateErrorMsg.visible(loadState is LoadState.Error)
-                loadStateRetry.visible(loadState !is LoadState.Error)
-
-                if (loadState is LoadState.Error) {
-                    loadStateErrorMsg.text = loadState.error.localizedMessage
-                }
+                loadStateRetry.visible(loadState is LoadState.Error)
 
                 loadStateRetry.setOnClickListener { retry() }
             }

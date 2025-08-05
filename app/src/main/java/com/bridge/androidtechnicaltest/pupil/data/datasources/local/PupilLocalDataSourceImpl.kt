@@ -86,7 +86,7 @@ class PupilLocalDataSourceImpl(
             pupilDao.insertPupils(localPupils)
             val keys = localPupils.map {
                 PupilRemoteKeys(
-                    pupilId = it.id,
+                    pupilId = it.pupilId,
                     prevKey = if (page == 1) null else page - 1,
                     nextKey = if (endOfPagination) null else page + 1
                 )
