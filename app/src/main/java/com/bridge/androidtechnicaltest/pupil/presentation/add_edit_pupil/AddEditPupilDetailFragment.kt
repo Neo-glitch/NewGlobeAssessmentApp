@@ -27,7 +27,6 @@ import com.bridge.androidtechnicaltest.core.utils.showErrorToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showWarningToastMessage
 import com.bridge.androidtechnicaltest.databinding.FragmentAddEditPupilDetailBinding
-import com.bridge.androidtechnicaltest.pupil.util.enqueOneTimePupilSyncWork
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

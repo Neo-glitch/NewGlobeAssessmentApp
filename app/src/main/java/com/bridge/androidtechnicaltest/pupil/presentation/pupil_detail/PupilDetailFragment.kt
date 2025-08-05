@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.core.BaseFragment
@@ -16,7 +15,6 @@ import com.bridge.androidtechnicaltest.core.utils.showSingleDialogAlert
 import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
 import com.bridge.androidtechnicaltest.core.utils.visible
 import com.bridge.androidtechnicaltest.databinding.FragmentPupildetailBinding
-import com.bridge.androidtechnicaltest.pupil.util.enqueOneTimePupilSyncWork
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
