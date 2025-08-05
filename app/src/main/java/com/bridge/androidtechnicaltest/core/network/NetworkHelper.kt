@@ -1,6 +1,7 @@
 package com.bridge.androidtechnicaltest.core.network
 
 import com.bridge.androidtechnicaltest.core.ErrorResponse
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.GeneralExceptionHandler
 import com.bridge.androidtechnicaltest.core.utils.K.CLIENT_ERROR_MSG
 import com.bridge.androidtechnicaltest.core.utils.K.NETWORK_ERROR_MSG

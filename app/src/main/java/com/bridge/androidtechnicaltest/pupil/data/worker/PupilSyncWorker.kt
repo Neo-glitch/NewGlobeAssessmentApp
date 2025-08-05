@@ -7,7 +7,7 @@ import android.os.Build
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.NotificationHelper
 import com.bridge.androidtechnicaltest.pupil.domain.repository.PupilRepository
 

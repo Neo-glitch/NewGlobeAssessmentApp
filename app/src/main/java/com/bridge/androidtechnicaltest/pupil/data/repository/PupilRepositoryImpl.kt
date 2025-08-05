@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.bridge.androidtechnicaltest.core.network.NetworkHelper
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.GeneralExceptionHandler
 import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.isRemoteImage
@@ -150,7 +150,7 @@ class PupilRepositoryImpl(
                     CreatePupilRequest(
                         name = pupil.name,
                         country = pupil.country,
-                        image = "http://lorempixel.com/640/480/sports?name=Eloy%20Vandervort",
+                        image = pupil.image,
                         latitude = pupil.latitude,
                         longitude = pupil.longitude
                     )
@@ -187,7 +187,7 @@ class PupilRepositoryImpl(
                         pupilId = pupil.pupilId,
                         name = pupil.name,
                         country = pupil.country,
-                        image = image,
+                        image = pupil.image,
                         latitude = pupil.latitude,
                         longitude = pupil.longitude
                     )

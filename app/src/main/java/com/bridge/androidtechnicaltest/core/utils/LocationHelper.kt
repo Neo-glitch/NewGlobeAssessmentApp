@@ -13,9 +13,13 @@ import com.google.android.gms.location.Priority
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class LocationHelper(private val context: Context)  {
+interface ILocationHelper {
+    suspend fun getCurrentLocation(): Pair<Double, Double>?
+}
 
-    suspend fun getCurrentLocation(): Pair<Double, Double>? = suspendCoroutine { continuation ->
+class LocationHelper(private val context: Context) : ILocationHelper  {
+
+    override suspend fun getCurrentLocation(): Pair<Double, Double>? = suspendCoroutine { continuation ->
         val fusedClient = LocationServices.getFusedLocationProviderClient(context)
 
         val request = LocationRequest.create().apply {

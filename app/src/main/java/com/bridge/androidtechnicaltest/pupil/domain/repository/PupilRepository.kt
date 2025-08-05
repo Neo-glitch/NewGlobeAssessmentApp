@@ -1,7 +1,7 @@
 package com.bridge.androidtechnicaltest.pupil.domain.repository
 
 import androidx.paging.PagingData
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 import kotlinx.coroutines.flow.Flow

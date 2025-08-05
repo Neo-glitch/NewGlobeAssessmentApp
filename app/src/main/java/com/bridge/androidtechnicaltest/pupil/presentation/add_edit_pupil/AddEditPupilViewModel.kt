@@ -2,7 +2,8 @@ package com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
+import com.bridge.androidtechnicaltest.core.utils.ILocationHelper
 import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.LocationHelper
 import com.bridge.androidtechnicaltest.core.utils.generateRandomInt
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AddEditPupilViewModel(
-    private val locationHelper: LocationHelper,
+    private val locationHelper: ILocationHelper,
     private val addEditPupilUseCase: AddUpdatePupilUseCase,
     private val getPupilUseCase: GetPupilUseCase
 ): ViewModel() {

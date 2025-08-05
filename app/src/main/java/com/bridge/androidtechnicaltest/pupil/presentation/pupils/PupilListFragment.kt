@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.core.BaseFragment
 import com.bridge.androidtechnicaltest.core.presentation.RecyclerViewItemSpaceDecorator
@@ -19,7 +18,7 @@ import com.bridge.androidtechnicaltest.core.utils.launchScope
 import com.bridge.androidtechnicaltest.core.utils.showWarningToastMessage
 import com.bridge.androidtechnicaltest.core.utils.toPx
 import com.bridge.androidtechnicaltest.databinding.FragmentPupillistBinding
-import com.bridge.androidtechnicaltest.pupil.util.enqueOneTimePupilSyncWork
+import com.bridge.androidtechnicaltest.pupil.util.PupilSyncWorkManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -203,7 +202,7 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_sync -> {
-                    enqueOneTimePupilSyncWork(requireContext())
+                    PupilSyncWorkManager(requireContext().applicationContext).enqueOneTimePupilSyncWork()
                     true
                 }
                 else -> false

@@ -2,7 +2,7 @@ package com.bridge.androidtechnicaltest.pupil.presentation.pupil_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.pupil.domain.usecases.DeletePupilUseCase
 import com.bridge.androidtechnicaltest.pupil.domain.usecases.GetPupilUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow

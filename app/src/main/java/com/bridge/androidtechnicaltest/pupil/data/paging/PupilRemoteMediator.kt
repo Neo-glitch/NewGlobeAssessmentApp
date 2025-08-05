@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.GeneralExceptionHandler
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.PupilLocalDataSource
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil

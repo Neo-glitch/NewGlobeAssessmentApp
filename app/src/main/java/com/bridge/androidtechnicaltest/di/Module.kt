@@ -1,14 +1,19 @@
 package com.bridge.androidtechnicaltest.di
 
+import com.bridge.androidtechnicaltest.BuildConfig
 import com.bridge.androidtechnicaltest.core.database.DatabaseFactory
 import com.bridge.androidtechnicaltest.core.network.AuthInterceptor
 import com.bridge.androidtechnicaltest.core.network.NetworkConnectionInterceptor
 import com.bridge.androidtechnicaltest.core.network.RequestInterceptor
+import com.bridge.androidtechnicaltest.core.utils.ILocationHelper
 import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.K.API_TIMEOUT
 import com.bridge.androidtechnicaltest.core.utils.LocationHelper
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.PupilLocalDataSource
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -20,7 +25,7 @@ val databaseModule = module {
 }
 
 val locationModule = module {
-    factory { LocationHelper(androidContext()) }
+    factory { LocationHelper(androidContext()) }.bind<ILocationHelper>()
 }
 
 val networkModule = module {
@@ -33,25 +38,25 @@ val networkModule = module {
             .addInterceptor(NetworkConnectionInterceptor())
             .addInterceptor(AuthInterceptor())
             .addInterceptor(RequestInterceptor())
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
+            })
             .build()
     }
 
-    // Provide Gson converter
     single {
         GsonConverterFactory.create()
     }
 
-    // Provide RxJava2 CallAdapter
-    single {
-        RxJava2CallAdapterFactory.create()
-    }
 
-    // Provide Retrofit
     single {
         Retrofit.Builder()
-            .baseUrl(K.BASE_URL) // Replace with your actual base URL
+            .baseUrl(K.BASE_URL)
             .client(get<OkHttpClient>())
-//            .addCallAdapterFactory(get<RxJava2CallAdapterFactory>())
             .addConverterFactory(get<GsonConverterFactory>())
             .build()
     }

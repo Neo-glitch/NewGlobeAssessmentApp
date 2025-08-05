@@ -1,6 +1,6 @@
 package com.bridge.androidtechnicaltest.pupil.data.datasources.remote
 
-import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.CreatePupilRequest
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.PupilsResponse
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.model.RemotePupil

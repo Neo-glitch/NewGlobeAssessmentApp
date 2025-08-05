@@ -7,6 +7,5 @@ object DatabaseFactory {
 
     fun getDBInstance(context: Context) =
         Room.databaseBuilder(context, AppDatabase::class.java, "TechnicalTestDb")
-            .fallbackToDestructiveMigration()
             .build()
 }
