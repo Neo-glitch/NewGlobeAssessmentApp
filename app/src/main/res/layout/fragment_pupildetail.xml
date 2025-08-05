@@ -12,7 +12,7 @@
 			android:id="@+id/tool_bar"
 			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"
-			android:background="@color/white"
+			android:background="?attr/colorPrimary"
 			android:elevation="4dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -24,11 +24,12 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="20dp"
 				android:paddingVertical="12dp"
-				android:contentDescription="back"
+				android:contentDescription="@string/back_label"
 				android:src="@drawable/ic_back"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/bridge_text_on_primary" />
 
 			<TextView
 				android:id="@+id/title"
@@ -41,6 +42,7 @@
 				android:text="@string/pupil_details"
 				android:textSize="16sp"
 				android:textStyle="bold"
+				android:textColor="@color/bridge_text_on_primary"
 				app:layout_constraintBottom_toBottomOf="@id/btn_back"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toEndOf="@id/btn_back"
@@ -48,49 +50,93 @@
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
-		<com.github.ybq.android.spinkit.SpinKitView
-			android:id="@+id/progress_loader"
-			style="@style/SpinKitView.Large.FoldingCube"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/loader_layout"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
 			android:visibility="gone"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
+			tools:visibility="gone"
 			app:layout_constraintTop_toBottomOf="@id/tool_bar"
-			app:SpinKit_Color="@color/bridge_green_primary" />
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent">
 
-		<ImageView
+			<com.github.ybq.android.spinkit.SpinKitView
+				android:id="@+id/progress_loader"
+				style="@style/SpinKitView.Large.FoldingCube"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:SpinKit_Color="@color/bridge_green_primary" />
+
+			<TextView
+				android:id="@+id/loading_text"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				style="@style/Bridge.TextAppearance.Normal.Small"
+				app:layout_constraintTop_toBottomOf="@id/progress_loader"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:text="@string/loading_label"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/content_layout"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toBottomOf="@id/tool_bar"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent">
+
+		<de.hdodenhof.circleimageview.CircleImageView
 			android:id="@+id/pupil_image"
-			android:layout_width="120dp"
-			android:layout_height="120dp"
-			android:layout_marginTop="20dp"
+			android:layout_width="200dp"
+			android:layout_height="160dp"
+			android:layout_marginTop="24dp"
+			app:civ_border_width="2dp"
+			app:civ_border_color="@color/bridge_green_primary"
 			android:contentDescription="@string/pupil_image"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+			app:layout_constraintTop_toTopOf="parent"
 			tools:src="@drawable/ic_error_image" />
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:id="@+id/pupil_details_container"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="12dp"
-			android:layout_marginHorizontal="8dp"
-			android:paddingHorizontal="8dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginHorizontal="16dp"
+			android:paddingHorizontal="16dp"
 			android:paddingVertical="16dp"
-			android:background="@drawable/bg_border_4dp"
+			android:background="@drawable/bg_white_border_8dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/pupil_image">
+
+			<View
+				android:id="@+id/details_divider"
+				android:layout_width="1dp"
+				android:layout_height="0dp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toEndOf="@id/guideline"
+				android:background="@color/bridge_grey_100"
+				app:layout_constraintEnd_toEndOf="@id/guideline"/>
 
 			<TextView
 				android:id="@+id/pupil_name_tv"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:text="@string/name"
-				app:layout_constraintEnd_toStartOf="@+id/guideline"
+				app:layout_constraintEnd_toStartOf="@+id/details_divider"
 				app:layout_constraintHorizontal_bias="0.0"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent" />
@@ -102,9 +148,10 @@
 				android:layout_height="wrap_content"
 				android:textStyle="bold"
 				android:textSize="14sp"
+				android:layout_marginStart="12dp"
 				app:layout_constraintEnd_toEndOf="parent"
-				android:textAlignment="textEnd"
-				app:layout_constraintStart_toEndOf="@+id/guideline"
+				android:textAlignment="textStart"
+				app:layout_constraintStart_toEndOf="@+id/details_divider"
 				app:layout_constraintTop_toTopOf="@id/pupil_name_tv"
 				tools:text="John Doe Smith" />
 
@@ -112,9 +159,9 @@
 				android:id="@+id/country_tv"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
+				android:layout_marginTop="8dp"
 				android:text="@string/country"
-				app:layout_constraintEnd_toStartOf="@+id/guideline"
+				app:layout_constraintEnd_toStartOf="@+id/details_divider"
 				app:layout_constraintHorizontal_bias="0.0"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/pupil_name_tv" />
@@ -124,11 +171,12 @@
 				style="@style/Bridge.TextAppearance.Normal.Small"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:textAlignment="textEnd"
+				android:textAlignment="textStart"
+				android:layout_marginStart="12dp"
 				android:textStyle="bold"
 				android:textSize="14sp"
 				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf="@+id/guideline"
+				app:layout_constraintStart_toEndOf="@+id/details_divider"
 				app:layout_constraintTop_toTopOf="@id/country_tv"
 				tools:text="Nigeria" />
 
@@ -140,20 +188,58 @@
 				app:layout_constraintGuide_percent="0.23" />
 		</androidx.constraintlayout.widget.ConstraintLayout>
 
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/btnQuickAction"
-			style="@style/Bridge.Button.Primary"
-			android:layout_width="0dp"
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/button_frame"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="116dp"
-			android:text="@string/edit_pupil_details"
-			android:visibility="gone"
-			android:layout_marginHorizontal="16dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.498"
+			android:elevation="4dp"
+			android:background="@color/white"
+			android:paddingVertical="20dp"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/pupil_details_container"
-			tools:visibility="visible" />
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent">
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/edit_pupil_details_btn"
+				style="@style/Bridge.Button.Primary"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/edit_pupil_label"
+				android:layout_marginHorizontal="16dp"
+				app:layout_constraintEnd_toStartOf="@id/guideline2"
+				app:layout_constraintHorizontal_bias="0.498"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:visibility="visible" />
+
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/delete_pupil_btn"
+				style="@style/Bridge.Button.Secondary"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="@string/delete_pupil_label"
+				app:strokeColor="@color/bridge_error"
+				android:textColor="@color/bridge_error"
+				android:layout_marginHorizontal="16dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.498"
+				app:layout_constraintStart_toEndOf="@id/guideline2"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:visibility="visible" />
+
+			<androidx.constraintlayout.widget.Guideline
+				android:id="@+id/guideline2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.5" />
+
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

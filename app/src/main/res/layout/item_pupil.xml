@@ -11,8 +11,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/pupil_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:contentDescription="@string/pupil_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

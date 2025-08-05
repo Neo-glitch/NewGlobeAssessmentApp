@@ -7,6 +7,7 @@ import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 
 fun LocalPupil.toEntity() : PupilEntity {
     return PupilEntity(
+        id = id,
         pupilId = pupilId,
         name = name,
         country = country,
@@ -19,6 +20,7 @@ fun LocalPupil.toEntity() : PupilEntity {
 
 fun PupilEntity.toModel(): LocalPupil {
     return LocalPupil(
+        id = id,
         pupilId = pupilId,
         name = name,
         country = country,

@@ -11,10 +11,16 @@
 
         <action
             android:id="@+id/action_pupilListFragment_to_pupilDetailFragment"
-            app:destination="@id/pupilDetailFragment" />
+            app:destination="@id/pupilDetailFragment" >
+            <argument
+                android:name="pupilId"
+                app:argType="integer"/>
+        </action>
         <action
             android:id="@+id/action_pupilListFragment_to_addEditPupilDetailFragment"
-            app:destination="@id/addEditPupilDetailFragment" />
+            app:destination="@id/addEditPupilDetailFragment">
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/pupilDetailFragment"
@@ -22,7 +28,11 @@
         android:label="PupilDetailFragment" >
         <action
             android:id="@+id/action_pupilDetailFragment_to_addEditPupilDetailFragment"
-            app:destination="@id/addEditPupilDetailFragment" />
+            app:destination="@id/addEditPupilDetailFragment" >
+            <argument
+                android:name="pupilId"
+                app:argType="integer"/>
+        </action>
         <argument
             android:name="pupilId"
             app:argType="integer"

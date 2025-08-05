@@ -7,7 +7,7 @@ import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 class GetPupilUseCase(
     private val repository: PupilRepository
 ) {
-    suspend operator fun invoke(pupilId: Int) : Resource<PupilEntity> {
-        return repository.getPupil(pupilId)
+    suspend operator fun invoke(id: Int) : Resource<PupilEntity> {
+        return repository.getPupil(id)
     }
 }

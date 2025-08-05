@@ -25,7 +25,7 @@ class DoubleActionDialogAlert {
     ) : Dialog {
         val binding = DataBindingUtil.inflate<LayoutDualActionDialogAlertBinding>(
             LayoutInflater.from(context),
-            R.layout.layout_single_action_dialog_alert,
+            R.layout.layout_dual_action_dialog_alert,
             null,
             false
         )

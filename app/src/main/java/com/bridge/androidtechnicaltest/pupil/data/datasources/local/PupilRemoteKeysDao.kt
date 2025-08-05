@@ -16,4 +16,7 @@ interface PupilRemoteKeysDao {
 
     @Query("DELETE FROM pupil_remote_keys")
     suspend fun clearRemoteKeys()
+
+    @Query("DELETE FROM pupil_remote_keys WHERE pupilId = :id")
+    suspend fun deleteById(id: Int)
 }

@@ -5,6 +5,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.bridge.androidtechnicaltest.pupil.data.worker.PupilSyncWorker
@@ -19,6 +20,7 @@ fun enqueOneTimePupilSyncWork(context: Context) {
         .build()
     val workRequest = OneTimeWorkRequestBuilder<PupilSyncWorker>()
         .setConstraints(workConstraints)
+        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         .build()
 
     WorkManager.getInstance(context).enqueueUniqueWork(

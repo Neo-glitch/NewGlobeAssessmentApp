@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.core.utils.loadImage
 import com.bridge.androidtechnicaltest.databinding.ItemPupilBinding
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
@@ -20,7 +21,7 @@ class PupilsAdapter(
                 oldItem: PupilEntity,
                 newItem: PupilEntity
             ): Boolean {
-                return oldItem.pupilId == newItem.pupilId && oldItem.name == newItem.name
+                return oldItem.id == newItem.id && oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(
@@ -52,7 +53,7 @@ class PupilsAdapter(
         fun bind(pupil: PupilEntity) {
             binding.pupilNameTv.text = pupil.name
             binding.pupilCountry.text = pupil.country
-            binding.pupilImage.loadImage(pupil.image)
+            binding.pupilImage.loadImage(pupil.image, errorImageRes = R.drawable.ic_user)
             binding.root.setOnClickListener { onItemClick(pupil) }
         }
 

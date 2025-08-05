@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="white">#FFFFFFFF</color>
-<!--	<color name="colorPrimary">#3F51B5</color>-->
-<!--	<color name="colorPrimaryDark">#303F9F</color>-->
-<!--	<color name="colorAccent">#FF4081</color>-->
-<!--	<color name="error">#A31300</color>-->
-<!--	<color name="neutral">#FFFFFF</color>-->
-<!--	<color name="neutral1">#FAFAFA</color>-->
-<!--	<color name="neutral2">#E2E9F0</color>-->
 
 	<!-- Primary Brand Colors -->
 	<color name="bridge_green_primary">#7CB342</color>

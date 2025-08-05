@@ -53,7 +53,7 @@ fun Fragment.showWarningToastMessage(message: String, duration: Int = Toast.LENG
         .show()
 }
 
-fun Context.showSingleDialogAlert(
+fun Fragment.showSingleDialogAlert(
     title: String,
     content: String?,
     buttonText: String? = null,
@@ -64,7 +64,7 @@ fun Context.showSingleDialogAlert(
     if (content.isNullOrBlank()) return
 
     SingleActionDialogAlert().prompt(
-        context = this,
+        context = requireContext(),
         title = title,
         content = content,
         buttonText = buttonText ?: getString(R.string.continue_label),
@@ -74,7 +74,7 @@ fun Context.showSingleDialogAlert(
     ).show()
 }
 
-fun Context.showDoubleDialogAlert(
+fun Fragment.showDoubleDialogAlert(
     title: String,
     content: String?,
     primaryButtonText: String? = null,
@@ -86,7 +86,7 @@ fun Context.showDoubleDialogAlert(
 ) {
     if (content.isNullOrBlank()) return
     DoubleActionDialogAlert().prompt(
-        context = this,
+        context = requireContext(),
         title = title,
         content = content,
         primaryButtonText = primaryButtonText ?: getString(R.string.continue_label),

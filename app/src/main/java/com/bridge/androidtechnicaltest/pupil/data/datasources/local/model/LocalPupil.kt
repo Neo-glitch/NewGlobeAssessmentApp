@@ -3,12 +3,15 @@ package com.bridge.androidtechnicaltest.pupil.data.datasources.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bridge.androidtechnicaltest.core.utils.K
 
 @Entity(tableName = "Pupils")
 data class LocalPupil(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+
     @ColumnInfo(name = "pupil_id")
-    val pupilId: Int,
+    val pupilId: Int = K.TEMP_PUPIL_PUBLIC_ID,
 
     @ColumnInfo(name = "name")
     val name: String,

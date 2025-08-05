@@ -12,6 +12,10 @@ data class AddEditPupilUiState(
 sealed class AddEditPupilOutput {
     data object OnLocationError : AddEditPupilOutput()
     data object OnEditSuccess : AddEditPupilOutput()
+
+    data class OnEditError(val message: String): AddEditPupilOutput()
+
+    data class OnPupilLoadError(val message: String) : AddEditPupilOutput()
 }
 
 sealed class AddEditLoadState {

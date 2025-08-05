@@ -9,8 +9,6 @@ import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncSt
 import kotlinx.coroutines.flow.Flow
 
 class PupilLocalDataSourceImpl(
-//    private val pupilDao: PupilDao,
-//    private val remoteKeysDao: PupilRemoteKeysDao,
     private val database: AppDatabase
 ) : PupilLocalDataSource {
 
@@ -49,8 +47,16 @@ class PupilLocalDataSourceImpl(
         pupilDao.deletePupilsWithSyncedStatus()
     }
 
-    override suspend fun deleteByPupilId(pupilId: Int) {
-        pupilDao.deleteByPupilId(pupilId)
+    override suspend fun softDeletePupil(pupil: LocalPupil) {
+        pupilDao.upsertPupil(pupil.copy(syncStatus = SyncStatus.PENDING_DELETE))
+    }
+
+    override suspend fun hardDeleteByPupilId(pupilId: Int) {
+
+        database.withTransaction {
+            pupilDao.deleteById(pupilId)
+            remoteKeysDao.deleteById(pupilId)
+        }
     }
 
     override suspend fun getUnsyncedPupils(): List<LocalPupil> {
@@ -65,7 +71,12 @@ class PupilLocalDataSourceImpl(
         return remoteKeysDao.getRemoteKeysByPupilId(id)
     }
 
-    override suspend fun updateLocalMediatorData(isRefresh: Boolean, localPupils: List<LocalPupil>, page: Int, endOfPagination: Boolean) {
+    override suspend fun updateLocalMediatorData(
+        isRefresh: Boolean,
+        localPupils: List<LocalPupil>,
+        page: Int,
+        endOfPagination: Boolean
+    ) {
         database.withTransaction {
             if (isRefresh) {
                 remoteKeysDao.clearRemoteKeys()
@@ -75,7 +86,7 @@ class PupilLocalDataSourceImpl(
             pupilDao.insertPupils(localPupils)
             val keys = localPupils.map {
                 PupilRemoteKeys(
-                    pupilId = it.pupilId,
+                    pupilId = it.id,
                     prevKey = if (page == 1) null else page - 1,
                     nextKey = if (endOfPagination) null else page + 1
                 )

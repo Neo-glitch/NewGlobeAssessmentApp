@@ -12,39 +12,29 @@ class PupilRemoteDataSourceImpl(
     private val pupilApi: PupilApi
 ): PupilRemoteDataSource {
 
-    override suspend fun getPupils(page: Int): Resource<PupilsResponse> {
-        return NetworkHelper.handleApiCall {
-            pupilApi.getPupils(page)
-        }
+    override suspend fun getPupils(page: Int): PupilsResponse {
+        return pupilApi.getPupils(page)
     }
 
-    override suspend fun getPupil(pupilId: Int): Resource<RemotePupil> {
-        return NetworkHelper.handleApiCall {
-            pupilApi.getPupil(pupilId)
-        }
+    override suspend fun getPupil(pupilId: Int): RemotePupil {
+        return pupilApi.getPupil(pupilId)
     }
 
-    override suspend fun createPupil(request: CreatePupilRequest): Resource<RemotePupil> {
-        return NetworkHelper.handleApiCall {
-            pupilApi.createPupil(request)
-        }
+    override suspend fun createPupil(request: CreatePupilRequest): RemotePupil {
+        return pupilApi.createPupil(request)
     }
 
     override suspend fun updatePupil(
         pupilId: Int,
         request: UpdatePupilRequest
-    ): Resource<RemotePupil> {
-        return NetworkHelper.handleApiCall {
-            pupilApi.updatePupil(
-                pupilId,
-                request
-            )
-        }
+    ): RemotePupil {
+        return pupilApi.updatePupil(
+            pupilId,
+            request
+        )
     }
 
-    override suspend fun deletePupil(pupilId: Int): Resource<Unit> {
-        return NetworkHelper.handleApiCall {
-            pupilApi.deletePupil(pupilId)
-        }
+    override suspend fun deletePupil(pupilId: Int): Unit {
+        return pupilApi.deletePupil(pupilId)
     }
 }

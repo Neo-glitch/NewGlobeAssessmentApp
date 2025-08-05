@@ -29,14 +29,8 @@ interface PupilDao {
     @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
     fun getPupilsPagingSource(): PagingSource<Int, LocalPupil>
 
-//    @Query("SELECT * FROM Pupils ORDER BY name ASC")
-//    fun getPupils(): Single<List<LocalPupil>>
-//
-//    @Query("SELECT * FROM Pupils ORDER BY name ASC")
-//    fun getPupilsFlowable(): Flowable<List<LocalPupil>>
-
-    @Query("SELECT * FROM Pupils WHERE pupil_id = :pupilId")
-    suspend fun getPupil(pupilId: Int): LocalPupil
+    @Query("SELECT * FROM Pupils WHERE id = :id")
+    suspend fun getPupil(id: Int): LocalPupil
 
     @Query("DELETE FROM Pupils")
     suspend fun deleteAllPupils()
@@ -44,8 +38,8 @@ interface PupilDao {
     @Query("DELETE FROM pupils WHERE sync_status = 'SYNCED'")
     suspend fun deletePupilsWithSyncedStatus()
 
-    @Query("DELETE FROM Pupils WHERE pupil_id = :pupilId")
-    suspend fun deleteByPupilId(pupilId: Int)
+    @Query("DELETE FROM Pupils WHERE id = :id")
+    suspend fun deleteById(id: Int)
 
     @Query("SELECT * FROM Pupils WHERE sync_status != 'SYNCED'")
     suspend fun getUnsyncedPupils(): List<LocalPupil>

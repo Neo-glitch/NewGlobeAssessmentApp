@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">Bridge</string>
+    <string name="app_name">Bridge International</string>
 
     <string name="pupil_detail_id">Id</string>
     <string name="pupil_detail_name">Name</string>
     <string name="pupil_detail_country">Country</string>
     <string name="sync">Sync</string>
+    <string name="delete_pupils">Delete Pupils</string>
 
     <string name="data_reset">Api Data Reset</string>
     <string name="data_reset_failed">Data Reset Failed</string>
@@ -20,4 +21,20 @@
     <string name="continue_label">Continue</string>
     <string name="cancel_label">Cancel</string>
     <string name="back_label">back</string>
+    <string name="edit_pupil_label">Edit Pupil</string>
+    <string name="add_pupil_label">Add Pupil</string>
+    <string name="retry_label">Retry</string>
+    <string name="empty_pupils_title_label">No Pupils Found</string>
+    <string name="empty_pupils_description_label">You haven\'t added any pupils yet. Once pupils are added, they will appear here automatically.</string>
+    <string name="error_title_label">Something went wrong</string>
+    <string name="error_loading_pupils_details">Error loading Pupil\'s details</string>
+    <string name="error_description_label">We couldn’t load the pupils. Please check your connection and try again.</string>
+    <string name="loading_label">Loading …</string>
+    <string name="delete_pupil_label">Delete Pupil</string>
+    <string name="confirm_delete_pupil_dialog_title">Delete This Pupil Record</string>
+    <string name="confirm_delete_pupil_dialog_content">You\'re about to delete this pupil’s record. Do you want to proceed?</string>
+    <string name="delete_pupil_success">Pupil deleted successfully</string>
+    <string name="delete_pupil_error">Error deleting pupil</string>
+    <string name="country_label">Country</string>
+    <string name="enter_your_name_label">Enter your name</string>
 </resources>

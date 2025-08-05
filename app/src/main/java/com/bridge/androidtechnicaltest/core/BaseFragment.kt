@@ -24,7 +24,6 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        dispatchTouchEvent(view)
     }
 
     fun showSuccessToast(
@@ -106,23 +105,5 @@ abstract class BaseFragment<VB: ViewBinding> : Fragment(), FragmentNavigationDis
         }
 
         findNavController().navigateUp()
-    }
-
-    private fun dispatchTouchEvent(view: View) {
-        if (view !is EditText && view !is ImageButton) {
-            try {
-                view.setOnClickListener {
-                    KeyboardUtil.hide(requireActivity(), view)
-                }
-            } catch (_: Exception) {
-            }
-        }
-
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                val innerView = view.getChildAt(i)
-                dispatchTouchEvent(innerView)
-            }
-        }
     }
 }

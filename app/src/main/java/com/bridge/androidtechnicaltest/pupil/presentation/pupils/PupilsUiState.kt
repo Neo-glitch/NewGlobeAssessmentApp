@@ -12,7 +12,7 @@ sealed class PupilsLoadState {
     object Idle: PupilsLoadState()
     object Empty: PupilsLoadState()
     object Success: PupilsLoadState()
-    object Error: PupilsLoadState()
-    object Loading: PupilsLoadState()
+    data class Error(val message: String): PupilsLoadState()
+    object InitialLoading: PupilsLoadState()
     object Refreshing: PupilsLoadState()
 }

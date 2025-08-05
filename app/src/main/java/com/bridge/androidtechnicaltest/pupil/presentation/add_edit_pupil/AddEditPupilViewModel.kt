@@ -3,12 +3,13 @@ package com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bridge.androidtechnicaltest.core.network.Resource
+import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.LocationHelper
 import com.bridge.androidtechnicaltest.core.utils.generateRandomInt
+import com.bridge.androidtechnicaltest.core.utils.orZero
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
 import com.bridge.androidtechnicaltest.pupil.domain.model.PupilEntity
 import com.bridge.androidtechnicaltest.pupil.domain.usecases.AddUpdatePupilUseCase
-import com.bridge.androidtechnicaltest.pupil.domain.usecases.DeletePupilUseCase
 import com.bridge.androidtechnicaltest.pupil.domain.usecases.GetPupilUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,29 +39,23 @@ class AddEditPupilViewModel(
             _uiState.value = _uiState.value.copy(loadState = AddEditLoadState.Loading)
 
             val result = getPupilUseCase(id)
-            if (result is Resource.Success) {
-                _uiState.value = _uiState.value.copy(
-                    loadState = AddEditLoadState.Loaded,
-                    name = result.data.name,
-                    country = result.data.country,
-                    image = result.data.image
-                )
+            when (result) {
+                is Resource.Error -> {
+                    _uiState.value = _uiState.value.copy(loadState = AddEditLoadState.Idle)
+                    _output.emit(AddEditPupilOutput.OnPupilLoadError(result.message))
+                }
+                is Resource.Success -> {
+                    _uiState.value = _uiState.value.copy(
+                        loadState = AddEditLoadState.Loaded,
+                        name = result.data.name,
+                        country = result.data.country,
+                        image = result.data.image
+                    )
 
-                pupil = result.data
+                    pupil = result.data
+                }
             }
         }
-    }
-
-    fun updateCountry(country: String) {
-        _uiState.value = _uiState.value.copy(
-            country = country
-        )
-    }
-
-    fun updatePupilName(name: String) {
-        _uiState.value = _uiState.value.copy(
-            name = name
-        )
     }
 
     fun updateImage(image: String) {
@@ -69,7 +64,19 @@ class AddEditPupilViewModel(
         )
     }
 
-    fun savePupil() {
+    fun cacheData(country: String, name: String) {
+        _uiState.value = _uiState.value.copy(
+            country = country,
+            name = name
+        )
+    }
+
+    fun savePupil(
+        name: String,
+        country: String
+    ) {
+        cacheData(country, name)
+
         viewModelScope.launch {
 
             _uiState.update { it.copy(loadState = AddEditLoadState.Loading) }
@@ -82,10 +89,10 @@ class AddEditPupilViewModel(
                 return@launch
             }
 
-            val isAddOperation = pupil == null || pupil?.syncStatus == SyncStatus.PENDING_CREATE
+            val isCreationOperation = pupil == null || pupil?.pupilId == K.TEMP_PUPIL_PUBLIC_ID
             val updatedPupil: PupilEntity
 
-            if (isAddOperation) {
+            if (isCreationOperation) {
                 updatedPupil = PupilEntity(
                     name = _uiState.value.name,
                     country = _uiState.value.country,
@@ -94,14 +101,10 @@ class AddEditPupilViewModel(
                     longitude = location.second,
                     syncStatus = SyncStatus.PENDING_CREATE
                 )
-
-                addEditPupilUseCase(updatedPupil, isPupilCreation = true)
-                _uiState.update { it.copy(loadState = AddEditLoadState.Idle) }
-                _output.emit(AddEditPupilOutput.OnEditSuccess)
-
             } else {
                 updatedPupil = PupilEntity(
-                    pupilId = pupil?.pupilId ?: generateRandomInt(),
+                    id = pupil?.id.orZero,
+                    pupilId = pupil?.pupilId ?: -100,
                     name = _uiState.value.name,
                     country = _uiState.value.country,
                     image = _uiState.value.image,
@@ -109,15 +112,18 @@ class AddEditPupilViewModel(
                     longitude = location.second,
                     syncStatus = SyncStatus.PENDING_UPDATE
                 )
+            }
 
-                addEditPupilUseCase(updatedPupil, isPupilCreation = false)
-                _uiState.update { it.copy(loadState = AddEditLoadState.Idle) }
-                _output.emit(AddEditPupilOutput.OnEditSuccess)
+            when (val response = addEditPupilUseCase(updatedPupil)) {
+                is Resource.Error -> {
+                    _uiState.update { it.copy(loadState = AddEditLoadState.Idle) }
+                    _output.emit(AddEditPupilOutput.OnEditError(response.message))
+                }
+                is Resource.Success -> {
+                    _uiState.update { it.copy(loadState = AddEditLoadState.Idle) }
+                    _output.emit(AddEditPupilOutput.OnEditSuccess)
+                }
             }
         }
     }
-
-//    fun getLatitudeAndLongitude(): Pair<Double, Double> {
-//
-//    }
 }

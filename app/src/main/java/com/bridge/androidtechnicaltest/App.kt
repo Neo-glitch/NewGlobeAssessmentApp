@@ -5,6 +5,9 @@ import com.bridge.androidtechnicaltest.di.databaseModule
 import com.bridge.androidtechnicaltest.di.locationModule
 import com.bridge.androidtechnicaltest.di.networkModule
 import com.bridge.androidtechnicaltest.pupil.di.pupilModule
+import com.bridge.androidtechnicaltest.pupil.util.enqueOneTimePupilSyncWork
+import com.bridge.androidtechnicaltest.pupil.util.enquePeriodicPupilSyncWork
+import com.bumptech.glide.Glide
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
@@ -25,5 +28,25 @@ class App : Application() {
             workManagerFactory()
             modules(appComponent)
         }
+        enqueOneTimePupilSyncWork(this)
+        enquePeriodicPupilSyncWork(this)
+    }
+
+    override fun onTrimMemory(level: Int) {
+        clearGlideCache()
+        super.onTrimMemory(level)
+    }
+
+    override fun onLowMemory() {
+        clearGlideCache()
+        super.onLowMemory()
+    }
+
+    private fun clearGlideCache() {
+        Glide.get(this).clearMemory()
+
+        Thread {
+            Glide.get(this).clearDiskCache()
+        }.start()
     }
 }
