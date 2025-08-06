@@ -1,15 +1,17 @@
-package com.bridge.androidtechnicaltest;
+package com.bridge.androidtechnicaltest
 
-import org.junit.Test;
+import org.junit.Test
 
-import static org.junit.Assert.*;
+import org.junit.Assert.*
 
 /**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
  */
-public class ExampleUnitTest {
-	@Test
-	public void addition_isCorrect() throws Exception {
-		assertEquals(4, 2 + 2);
-	}
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 }
