@@ -123,6 +123,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:inputType="textPersonName|textCapWords"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="38dp" />
 

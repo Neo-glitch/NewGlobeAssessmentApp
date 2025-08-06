@@ -37,7 +37,7 @@ class PupilRepositoryImpl(
     override fun getOrFetchPupils(): Flow<PagingData<PupilEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = K.PAGE_SIZE,
             ),
             pagingSourceFactory = {
                 localDataSource.getPupilsPagingSource()
