@@ -20,6 +20,7 @@ import java.net.UnknownHostException
 object GeneralExceptionHandler {
 
     fun getErrorMessage(throwable: Throwable): String {
+        throwable.printStackTrace()
         return when(throwable) {
             is CancellationException -> throw throwable
             is HttpException -> {
