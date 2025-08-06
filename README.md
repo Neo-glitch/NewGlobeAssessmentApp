@@ -43,7 +43,7 @@ This Android application allows users to manage pupil records via a RESTful API 
 | **Retrofit**   | Handles all HTTP requests and responses |
 | **WorkManager**| Manages background sync tasks |
 | **Sync Manager** | Synchronizes local and remote data |
-| **Validation Layer** | Ensures valid inputs (name, country, coordinates) |
+| **Validation Layer** | Ensures valid inputs (name, country, image, coordinates) |
 
 ---
 
