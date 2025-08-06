@@ -26,8 +26,10 @@ class PupilRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, LocalPupil>
     ): MediatorResult {
+
         val page = when (loadType) {
             LoadType.REFRESH -> 1
+
             LoadType.PREPEND -> {
                 val remoteKey = getRemoteKeyForFirstItem(state)
                 val prevKey = remoteKey?.prevKey
@@ -65,12 +67,30 @@ class PupilRemoteMediator(
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, LocalPupil>): PupilRemoteKey? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
-            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) }
+            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) } ?: getClosestValidRemoteKey(
+                state, fromEnd = true
+            )
     }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, LocalPupil>): PupilRemoteKey? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
-            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) }
+            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) } ?: getClosestValidRemoteKey(
+                state,
+                fromEnd = false
+            )
     }
+
+    private suspend fun getClosestValidRemoteKey(state: PagingState<Int, LocalPupil>, fromEnd: Boolean): PupilRemoteKey? {
+        val allItems = state.pages.flatMap { it.data }
+
+        val items = if (fromEnd) allItems.asReversed() else allItems
+
+        for (item in items) {
+            val key = localDataSource.getRemoteKeyByPupilId(item.pupilId)
+            if (key != null) return key
+        }
+        return null
+    }
+
 }
