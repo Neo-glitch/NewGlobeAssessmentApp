@@ -198,6 +198,10 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
                 displayPopupMenu(it)
             }
 
+            swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(requireContext(), R.color.bridge_green_primary)
+            )
+
             swipeRefreshLayout.setOnRefreshListener {
                 if (viewModel.uiState.value.loadState != PupilsLoadState.InitialLoading){
                     swipeRefreshLayout.isRefreshing = true
