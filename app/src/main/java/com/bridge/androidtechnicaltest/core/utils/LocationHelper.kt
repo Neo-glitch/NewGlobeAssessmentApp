@@ -42,7 +42,7 @@ class LocationHelper(private val context: Context) : ILocationHelper  {
 
             fusedClient.requestLocationUpdates(request, callback, Looper.getMainLooper())
         } else {
-            continuation.resume(null) // if using suspendCoroutine
+            continuation.resume(null)
         }
     }
 }
