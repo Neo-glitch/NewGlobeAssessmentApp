@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/pupilListFragment">
+
+    <fragment
+        android:id="@+id/pupilListFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.pupils.PupilListFragment"
+        android:label="PupilListFragment" >
+
+        <action
+            android:id="@+id/action_pupilListFragment_to_pupilDetailFragment"
+            app:destination="@id/pupilDetailFragment" >
+            <argument
+                android:name="pupilId"
+                app:argType="integer"/>
+        </action>
+        <action
+            android:id="@+id/action_pupilListFragment_to_addEditPupilDetailFragment"
+            app:destination="@id/addEditPupilDetailFragment">
+
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/pupilDetailFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.pupil_detail.PupilDetailFragment"
+        android:label="PupilDetailFragment" >
+        <action
+            android:id="@+id/action_pupilDetailFragment_to_addEditPupilDetailFragment"
+            app:destination="@id/addEditPupilDetailFragment" >
+            <argument
+                android:name="pupilId"
+                app:argType="integer"/>
+        </action>
+        <argument
+            android:name="pupilId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
+    <fragment
+        android:id="@+id/addEditPupilDetailFragment"
+        android:name="com.bridge.androidtechnicaltest.pupil.presentation.add_edit_pupil.AddEditPupilDetailFragment"
+        android:label="AddEditPupilDetailFragment" >
+        <argument
+            android:name="pupilId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
+</navigation>

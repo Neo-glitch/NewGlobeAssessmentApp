@@ -1,12 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/pupil_list"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent">
 
-</LinearLayout>
+<!--		<androidx.appcompat.widget.Toolbar-->
+<!--			android:id="@+id/tool_bar"-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:layout_height="?attr/actionBarSize"-->
+<!--			android:elevation="4dp"-->
+<!--			app:title="@string/app_name"-->
+<!--			app:titleTextAppearance="@style/Bridge.TextAppearance.Normal.Large.Bold"-->
+<!--			android:shadowColor="@color/bridge_grey_200"-->
+<!--			app:layout_constraintEnd_toEndOf="parent"-->
+<!--			android:background="?attr/colorPrimary"-->
+<!--			app:titleTextColor="@color/bridge_text_on_primary"-->
+<!--			app:layout_constraintStart_toStartOf="parent"-->
+<!--			app:layout_constraintTop_toTopOf="parent"/>-->
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/tool_bar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			android:elevation="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/btn_back"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:paddingVertical="12dp"
+				android:contentDescription="@string/back_label"
+				android:src="@drawable/ic_back"
+				android:visibility="gone"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<TextView
+				android:id="@+id/title"
+				style="@style/Bridge.TextAppearance.Normal.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				app:layout_constrainedWidth="true"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="20dp"
+				android:gravity="center_vertical"
+				android:text="@string/app_name"
+				android:textColor="@color/bridge_text_on_primary"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/show_menu_iv"
+				app:layout_constraintHorizontal_bias="0.0"
+				app:layout_constraintStart_toEndOf="@id/btn_back"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<ImageView
+				android:id="@+id/show_menu_iv"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="19dp"
+				tools:visibility="visible"
+				app:tint="@color/bridge_text_on_primary"
+				android:src="@drawable/ic_menu_more"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/swipe_refresh_layout"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/tool_bar"
+			app:layout_constraintBottom_toBottomOf="parent">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/pupil_list"
+					tools:listitem="@layout/item_pupil"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/empty_error_view"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingHorizontal="16dp"
+					android:visibility="gone"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+					<ImageView
+						android:id="@+id/empty_or_error_image"
+						android:layout_width="100dp"
+						android:layout_height="100dp"
+						android:src="@drawable/ic_error"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"/>
+
+					<TextView
+						android:id="@+id/error_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						style="@style/Bridge.TextAppearance.Normal.Large"
+						android:maxLines="1"
+						android:layout_marginTop="8dp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/empty_or_error_image"
+						tools:text="This is the error"/>
+
+					<TextView
+						android:id="@+id/error_description"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						style="@style/Bridge.TextAppearance.Normal"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						android:layout_marginTop="4dp"
+						app:layout_constraintTop_toBottomOf="@id/error_title"
+						tools:text="This is the error description tied to the error"/>
+
+					<com.google.android.material.button.MaterialButton
+						android:id="@+id/retry_btn"
+						style="@style/Bridge.Button.Primary"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="32dp"
+						android:text="@string/retry_label"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintHorizontal_bias="0.498"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/error_description"
+						tools:visibility="visible" />
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<com.github.ybq.android.spinkit.SpinKitView
+					android:id="@+id/progress_loader"
+					style="@style/SpinKitView.Large.FoldingCube"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:visibility="gone"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:SpinKit_Color="@color/bridge_green_primary" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/add_pupil_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:clickable="true"
+            android:contentDescription="@string/add_pupil"
+            app:layout_constraintEnd_toEndOf="parent"
+			app:srcCompat="@drawable/ic_add"
+			app:tint="@color/white"
+			app:backgroundTint="@color/bridge_text_secondary"
+			app:layout_constraintBottom_toBottomOf="parent"
+			android:layout_marginBottom="20dp"
+			android:layout_marginEnd="20dp"/>
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

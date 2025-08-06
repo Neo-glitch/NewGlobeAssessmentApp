@@ -1,15 +1,141 @@
 <resources>
 
-	<!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-		<!-- Customize your theme here. -->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
+	<!-- Header Styles -->
+	<style name="Bridge.TextAppearance.Headline1" parent="TextAppearance.Material3.HeadlineLarge">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">32sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
 	</style>
 
-	<style name="TextDetail" parent="TextAppearance.AppCompat.Medium">
-
+	<style name="Bridge.TextAppearance.Headline2" parent="TextAppearance.Material3.HeadlineMedium">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">24sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
 	</style>
+
+	<!-- Body Text -->
+	<style name="Bridge.TextAppearance.Body1" parent="TextAppearance.Material3.BodyLarge">
+		<item name="android:textColor">@color/bridge_text_primary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:lineSpacingExtra">4dp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Body2" parent="TextAppearance.Material3.BodyMedium">
+		<item name="android:textColor">@color/bridge_text_secondary</item>
+		<item name="android:textSize">14sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal" parent="TextAppearance.Material3.BodyMedium">
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:lineSpacingExtra">2dp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Small" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textSize">12sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Large" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Large.Bold" parent="Bridge.TextAppearance.Normal.Large">
+		<item name="android:textSize">16sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="Bridge.TextAppearance.Normal.Bold" parent="Bridge.TextAppearance.Normal">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<!-- Button Text -->
+	<style name="Bridge.TextAppearance.Button" parent="TextAppearance.Material3.LabelLarge">
+		<item name="android:textColor">@color/bridge_text_on_primary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
+		<item name="android:textAllCaps">false</item>
+	</style>
+
+	<!-- Primary Button -->
+	<style name="Bridge.Button.Primary" parent="Widget.Material3.Button">
+		<item name="android:backgroundTint">@color/bridge_green_primary</item>
+		<item name="android:textAppearance">@style/Bridge.TextAppearance.Button</item>
+		<item name="cornerRadius">8dp</item>
+		<item name="android:paddingVertical">8dp</item>
+		<item name="android:gravity">center</item>
+		<item name="android:minHeight">48dp</item>
+		<item name="android:paddingHorizontal">24dp</item>
+	</style>
+
+	<!-- Secondary Button -->
+	<style name="Bridge.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+		<item name="strokeColor">@color/bridge_green_primary</item>
+		<item name="android:textColor">@color/bridge_green_primary</item>
+		<item name="cornerRadius">8dp</item>
+		<item name="android:paddingVertical">8dp</item>
+	</style>
+
+	<!-- Text Button -->
+	<style name="Bridge.Button.Text" parent="Widget.Material3.Button.TextButton">
+		<item name="android:textColor">@color/bridge_green_primary</item>
+		<item name="cornerRadius">8dp</item>
+	</style>
+
+	<style name="Bridge.EditText" parent= "Widget.AppCompat.EditText">
+		<item name="hintTextColor">@color/bridge_text_secondary</item>
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:paddingHorizontal">16dp</item>
+		<item name="android:paddingVertical">8dp</item>
+		<item name="android:background">@drawable/bg_white_border_8dp</item>
+		<item name="android:minHeight">56dp</item>
+	</style>
+
+	<style name="WarningToast">
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_warning</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="SuccessToast" >
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_success</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="ErrorToast" >
+		<item name="stTextColor">@color/white</item>
+		<item name="stTextSize">14sp</item>
+		<item name="stColorBackground">@color/bridge_error</item>
+		<item name="stSolidBackground">false</item>
+		<item name="stLength">LONG</item>
+		<item name="stRadius">12dp</item>
+	</style>
+
+	<style name="Bridge.Dialog" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
+		<item name="android:background">@drawable/bg_borderless_12dp</item>
+		<item name="android:fitsSystemWindows">false</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:backgroundDimAmount">0.4</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:dialogPreferenceStyle">@drawable/bg_borderless_12dp</item>
+	</style>
+
+	<style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+		<item name="bottomSheetStyle">@style/Bridge.BottomSheetStyle</item>
+		<item name="android:windowIsFloating">false</item>
+		<item name="android:windowSoftInputMode">adjustResize</item>
+	</style>
+
+	<style name="Bridge.BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+		<item name="android:background">@drawable/bg_top_left_right_20dp</item>
+	</style>
+
+
 
 </resources>
