@@ -27,7 +27,7 @@ class PupilSyncWorkManager(private val context: Context) {
             .setConstraints(workConstraints)
             .setBackoffCriteria(
                 BackoffPolicy.EXPONENTIAL,
-                20,
+                30,
                 TimeUnit.SECONDS
             )
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
@@ -47,11 +47,11 @@ class PupilSyncWorkManager(private val context: Context) {
             .build()
 
         val workRequest = PeriodicWorkRequestBuilder<PupilSyncWorker>(
-            20, TimeUnit.MINUTES
+            30, TimeUnit.MINUTES
         )
             .setBackoffCriteria(
                 BackoffPolicy.EXPONENTIAL,
-                20,
+                30,
                 TimeUnit.SECONDS
             )
             .setConstraints(workConstraints)
