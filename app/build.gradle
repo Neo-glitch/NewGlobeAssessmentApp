@@ -56,8 +56,6 @@ dependencies {
     def koinVersion = "4.1.0"
     def roomVersion = "2.7.2"
     def retrofitVersion = "2.9.0"
-    def rxandroidVersion = "2.1.1"
-    def rxJavaVersion = "2.2.21"
     def coroutineTest = "1.9.0-RC.2"
     def nav_version = "2.9.3"
     def styleableToast = "2.4.0"
@@ -97,17 +95,12 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-paging:$roomVersion"
-//    implementation "androidx.room:room-rxjava2:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // paging
     implementation "androidx.paging:paging-runtime-ktx:$paging"
     // alternatively - without Android dependencies for tests
     testImplementation "androidx.paging:paging-testing:$paging"
-
-    // RxJava & RxAndroid
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
