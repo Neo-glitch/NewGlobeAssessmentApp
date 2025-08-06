@@ -1,6 +1,7 @@
 package com.bridge.androidtechnicaltest.pupil.util
 
 import android.content.Context
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
@@ -24,6 +25,11 @@ class PupilSyncWorkManager(private val context: Context) {
             .build()
         val workRequest = OneTimeWorkRequestBuilder<PupilSyncWorker>()
             .setConstraints(workConstraints)
+            .setBackoffCriteria(
+                BackoffPolicy.EXPONENTIAL,
+                20,
+                TimeUnit.SECONDS
+            )
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
 
@@ -41,8 +47,13 @@ class PupilSyncWorkManager(private val context: Context) {
             .build()
 
         val workRequest = PeriodicWorkRequestBuilder<PupilSyncWorker>(
-            30, TimeUnit.MINUTES
+            20, TimeUnit.MINUTES
         )
+            .setBackoffCriteria(
+                BackoffPolicy.EXPONENTIAL,
+                20,
+                TimeUnit.SECONDS
+            )
             .setConstraints(workConstraints)
             .build()
 

@@ -43,7 +43,7 @@ class PupilSyncWorker(
             if (response is Resource.Success) {
                 Result.Success()
             } else {
-                Result.Failure()
+                Result.Retry()
             }
         } catch (e: Exception) {
             Result.failure()
