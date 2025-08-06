@@ -1,6 +1,6 @@
-# NewGlobe Assessment App
+# Bridge International Academies App
 
-A mobile application for administering pupil information, developed as part of the **Bridge International Academies** technical assessment.
+A mobile application for administering pupil information, developed as part of the **NewGlobe** technical assessment.
 
 ---
 
