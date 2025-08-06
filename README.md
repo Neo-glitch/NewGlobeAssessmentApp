@@ -17,10 +17,10 @@ This Android application allows users to manage pupil records via a RESTful API 
 
 ## Features
 
-- **View Pupils List**: Display all pupil records (Name, Country, Image, Location)
+- **View Pupils List**: Display all pupil records (Name, Country, Image)
 - **Add New Pupil**: Create new pupil entries with real-time form validation
 - **Offline Support**: Full functionality without internet; automatic sync when back online
-- **Error Handling**: Graceful handling of API/network failures
+- **Error Handling**: Graceful handling of API/network && Database failures
 - **Data Synchronization**: Seamless local-to-remote sync when connectivity is restored
 
 ---
