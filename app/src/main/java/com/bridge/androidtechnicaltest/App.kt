@@ -28,7 +28,7 @@ class App : Application() {
             modules(appComponent)
         }
 
-//        PupilSyncWorkManager(this).enqueOneTimePupilSyncWork()
+        PupilSyncWorkManager(this).enqueOneTimePupilSyncWork()
         PupilSyncWorkManager(this).enquePeriodicPupilSyncWork()
     }
 

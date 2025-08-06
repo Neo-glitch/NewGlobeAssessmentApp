@@ -9,9 +9,9 @@ import com.bridge.androidtechnicaltest.core.network.NetworkHelper
 import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.GeneralExceptionHandler
 import com.bridge.androidtechnicaltest.core.utils.K
-import com.bridge.androidtechnicaltest.core.utils.isRemoteImage
 import com.bridge.androidtechnicaltest.core.utils.orEmpty
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.PupilLocalDataSource
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.ClearedUnSyncedPupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemoteDataSource
@@ -37,7 +37,7 @@ class PupilRepositoryImpl(
     override fun getOrFetchPupils(): Flow<PagingData<PupilEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,
+                pageSize = 20,
             ),
             pagingSourceFactory = {
                 localDataSource.getPupilsPagingSource()
@@ -56,14 +56,6 @@ class PupilRepositoryImpl(
     override suspend fun getPupil(id: Int): Resource<PupilEntity> {
         return try {
             return Resource.Success(localDataSource.getPupil(id).toEntity())
-        } catch (t: Throwable) {
-            Resource.Error(GeneralExceptionHandler.getErrorMessage(t))
-        }
-    }
-
-    override suspend fun getUnsyncedPupils(): Resource<List<PupilEntity>> {
-        return try {
-            Resource.Success(localDataSource.getUnsyncedPupils().map { it.toEntity() })
         } catch (t: Throwable) {
             Resource.Error(GeneralExceptionHandler.getErrorMessage(t))
         }
@@ -117,18 +109,31 @@ class PupilRepositoryImpl(
 
     override suspend fun syncPupils(): Resource<Unit> {
         var result: Resource<Unit> = Resource.Success(Unit)
+        // delete staled clearedUnsyncedPupilData
+        deleteStaledClearedUnsyncedPupilData()
+
         val pendingCreateSyncPupils =
             localDataSource.getPupilsBySyncStatus(SyncStatus.PENDING_CREATE)
+        val clearedCreateUnsyncedPupils = localDataSource.getClearedUnsyncedPupilsBySyncStatus(
+            SyncStatus.PENDING_CREATE)
+
         val pendingUpdateSyncPupils =
             localDataSource.getPupilsBySyncStatus(SyncStatus.PENDING_UPDATE)
+
+        val clearedUpdateUnsyncedPupils = localDataSource.getClearedUnsyncedPupilsBySyncStatus(
+            SyncStatus.PENDING_UPDATE)
+
         val pendingDeleteSyncPupils =
             localDataSource.getPupilsBySyncStatus(SyncStatus.PENDING_DELETE)
 
+        val clearedDeleteUnsyncedPupils = localDataSource.getClearedUnsyncedPupilsBySyncStatus(
+            SyncStatus.PENDING_DELETE)
+
         supervisorScope {
             val responses = listOf(
-                async { syncCreates(pendingCreateSyncPupils) },
-                async { syncUpdates(pendingUpdateSyncPupils) },
-                async { syncDeletes(pendingDeleteSyncPupils) }
+                async { syncCreates(pendingCreateSyncPupils, clearedCreateUnsyncedPupils) },
+                async { syncUpdates(pendingUpdateSyncPupils, clearedUpdateUnsyncedPupils) },
+                async { syncDeletes(pendingDeleteSyncPupils, clearedDeleteUnsyncedPupils) }
             ).awaitAll()
 
             if (responses.any { it is Resource.Error }) {
@@ -141,10 +146,40 @@ class PupilRepositoryImpl(
         return result
     }
 
-    private suspend fun syncCreates(pupils: List<LocalPupil>): Resource<Unit> {
-        var result: Resource<Unit> = Resource.Success(Unit)
-        pupils.forEach { pupil ->
+    private suspend fun deleteStaledClearedUnsyncedPupilData() {
+        val cutOff = System.currentTimeMillis() - K.STALE_DATA_THRESHOLD
+        localDataSource.deleteClearedUnsyncedOlderThan(cutOff)
+    }
 
+    private suspend fun syncCreates(
+        pupils: List<LocalPupil>,
+        clearedCreateUnsyncedPupils: List<ClearedUnSyncedPupil>
+    ): Resource<Unit> {
+        var result: Resource<Unit> = Resource.Success(Unit)
+
+        // handle syncing this first
+        clearedCreateUnsyncedPupils.forEach { unSyncedPupil ->
+            val response = NetworkHelper.handleApiCall {
+                remoteDataSource.createPupil(
+                    CreatePupilRequest(
+                        name = unSyncedPupil.name,
+                        country = unSyncedPupil.country,
+                        image = unSyncedPupil.image,
+                        latitude = unSyncedPupil.latitude,
+                        longitude = unSyncedPupil.longitude
+                    )
+                )
+            }
+
+            when (response) {
+                is Resource.Error -> result = Resource.Error(response.message)
+                is Resource.Success -> {
+                    localDataSource.deleteClearedUnsyncedPupilById(unSyncedPupil.id)
+                }
+            }
+        }
+
+        pupils.forEach { pupil ->
             val response = NetworkHelper.handleApiCall {
                 remoteDataSource.createPupil(
                     CreatePupilRequest(
@@ -174,12 +209,36 @@ class PupilRepositoryImpl(
         return result
     }
 
-    private suspend fun syncUpdates(pupils: List<LocalPupil>): Resource<Unit> {
+    private suspend fun syncUpdates(
+        pupils: List<LocalPupil>,
+        clearedUpdateUnsyncedPupils: List<ClearedUnSyncedPupil>
+    ): Resource<Unit> {
         var result: Resource<Unit> = Resource.Success(Unit)
 
+        clearedUpdateUnsyncedPupils.forEach { unSyncedPupil ->
+            val response = NetworkHelper.handleApiCall {
+                remoteDataSource.updatePupil(
+                    unSyncedPupil.pupilId,
+                    UpdatePupilRequest(
+                        pupilId = unSyncedPupil.pupilId,
+                        name = unSyncedPupil.name,
+                        country = unSyncedPupil.country,
+                        image = unSyncedPupil.image,
+                        latitude = unSyncedPupil.latitude,
+                        longitude = unSyncedPupil.longitude
+                    )
+                )
+            }
+
+            when (response) {
+                is Resource.Error -> result = Resource.Error(response.message)
+                is Resource.Success -> {
+                    localDataSource.deleteClearedUnsyncedPupilById(unSyncedPupil.id)
+                }
+            }
+        }
+
         pupils.forEach { pupil ->
-            val image =
-                if (pupil.image.isRemoteImage()) pupil.image else "http://lorempixel.com/640/480/sports?name=Eloy%20Vandervort"
             val response = NetworkHelper.handleApiCall {
                 remoteDataSource.updatePupil(
                     pupil.pupilId,
@@ -210,8 +269,23 @@ class PupilRepositoryImpl(
         return result
     }
 
-    private suspend fun syncDeletes(pupils: List<LocalPupil>): Resource<Unit> {
+    private suspend fun syncDeletes(
+        pupils: List<LocalPupil>,
+        clearedDeleteUnsyncedPupils: List<ClearedUnSyncedPupil>
+    ): Resource<Unit> {
         var result: Resource<Unit> = Resource.Success(Unit)
+
+        clearedDeleteUnsyncedPupils.forEach { unSyncedPupil ->
+            val response =
+                NetworkHelper.handleApiCall { remoteDataSource.deletePupil(unSyncedPupil.pupilId) }
+
+            when (response) {
+                is Resource.Error -> result = Resource.Error(response.message)
+                is Resource.Success -> {
+                    localDataSource.deleteClearedUnsyncedPupilById(unSyncedPupil.id)
+                }
+            }
+        }
 
         pupils.forEach { pupil ->
             val response =

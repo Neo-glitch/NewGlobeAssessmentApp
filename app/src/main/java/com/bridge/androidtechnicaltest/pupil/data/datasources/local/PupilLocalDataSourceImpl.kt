@@ -3,10 +3,11 @@ package com.bridge.androidtechnicaltest.pupil.data.datasources.local
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.bridge.androidtechnicaltest.core.database.AppDatabase
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.ClearedUnSyncedPupil
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
-import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.PupilRemoteKeys
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.PupilRemoteKey
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
-import kotlinx.coroutines.flow.Flow
+import com.bridge.androidtechnicaltest.pupil.data.mapper.toClearedUnsyncedPupil
 
 class PupilLocalDataSourceImpl(
     private val database: AppDatabase
@@ -14,10 +15,7 @@ class PupilLocalDataSourceImpl(
 
     private val pupilDao = database.pupilDao
     private val remoteKeysDao = database.remoteKeysDao
-
-    override suspend fun insertPupils(pupils: List<LocalPupil>) {
-        pupilDao.insertPupils(pupils)
-    }
+    private val clearedUnsyncedPupilDao = database.clearedUnsyncedPupilDao
 
     override suspend fun upsertPupil(pupil: LocalPupil) {
         pupilDao.upsertPupil(pupil)
@@ -25,10 +23,6 @@ class PupilLocalDataSourceImpl(
 
     override suspend fun getPupils(): List<LocalPupil> {
         return pupilDao.getPupils()
-    }
-
-    override fun getPupilsFlowable(): Flow<List<LocalPupil>> {
-        return pupilDao.getPupilsFlowable()
     }
 
     override fun getPupilsPagingSource(): PagingSource<Int, LocalPupil> {
@@ -43,32 +37,23 @@ class PupilLocalDataSourceImpl(
         return pupilDao.deleteAllPupils()
     }
 
-    override suspend fun deletePupilsWithSyncedStatus() {
-        pupilDao.deletePupilsWithSyncedStatus()
-    }
-
     override suspend fun softDeletePupil(pupil: LocalPupil) {
         pupilDao.upsertPupil(pupil.copy(syncStatus = SyncStatus.PENDING_DELETE))
     }
 
     override suspend fun hardDeleteByPupilId(pupilId: Int) {
-
         database.withTransaction {
             pupilDao.deleteById(pupilId)
             remoteKeysDao.deleteById(pupilId)
         }
     }
 
-    override suspend fun getUnsyncedPupils(): List<LocalPupil> {
-        return pupilDao.getUnsyncedPupils()
-    }
-
     override suspend fun getPupilsBySyncStatus(status: SyncStatus): List<LocalPupil> {
         return pupilDao.getPupilsBySyncStatus(status)
     }
 
-    override suspend fun getRemoteKeysByPublicId(id: Int): PupilRemoteKeys? {
-        return remoteKeysDao.getRemoteKeysByPupilId(id)
+    override suspend fun getRemoteKeyByPupilId(id: Int): PupilRemoteKey? {
+        return remoteKeysDao.getRemoteKeyByPupilId(id)
     }
 
     override suspend fun updateLocalMediatorData(
@@ -79,19 +64,35 @@ class PupilLocalDataSourceImpl(
     ) {
         database.withTransaction {
             if (isRefresh) {
+                val unsyncedPupils = pupilDao.getUnsyncedPupils()
+                clearedUnsyncedPupilDao.insertClearedUnSyncedPupils(unsyncedPupils.map { it.toClearedUnsyncedPupil() })
+
                 remoteKeysDao.clearRemoteKeys()
-                pupilDao.deletePupilsWithSyncedStatus()
+                pupilDao.deleteAllPupils()
             }
 
-            pupilDao.insertPupils(localPupils)
+
             val keys = localPupils.map {
-                PupilRemoteKeys(
+                PupilRemoteKey(
                     pupilId = it.pupilId,
                     prevKey = if (page == 1) null else page - 1,
                     nextKey = if (endOfPagination) null else page + 1
                 )
             }
             remoteKeysDao.insertAll(remoteKeys = keys)
+            pupilDao.insertPupils(localPupils)
         }
+    }
+
+    override suspend fun getClearedUnsyncedPupilsBySyncStatus(status: SyncStatus): List<ClearedUnSyncedPupil> {
+        return clearedUnsyncedPupilDao.getClearedUnsyncedPupilsBySyncStatus(status)
+    }
+
+    override suspend fun deleteClearedUnsyncedPupilById(id: Int) {
+        clearedUnsyncedPupilDao.deleteById(id)
+    }
+
+    override suspend fun deleteClearedUnsyncedOlderThan(cutoff: Long) {
+        clearedUnsyncedPupilDao.deleteOlderThan(cutoff)
     }
 }

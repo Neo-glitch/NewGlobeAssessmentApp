@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 fun <T> LifecycleOwner.collectInLifecycleScope(
     flow: Flow<T>,
-    lifecycleState : Lifecycle.State = Lifecycle.State.RESUMED,
+    lifecycleState : Lifecycle.State = Lifecycle.State.STARTED,
     action: suspend (T) -> Unit
 ) {
     this.lifecycleScope.launch {
@@ -24,7 +24,7 @@ fun <T> LifecycleOwner.collectInLifecycleScope(
     }
 }
 
-fun Fragment.launchScope(state: Lifecycle.State = Lifecycle.State.RESUMED,  block: suspend CoroutineScope.() -> Unit) {
+fun Fragment.launchScope(state: Lifecycle.State = Lifecycle.State.STARTED,  block: suspend CoroutineScope.() -> Unit) {
     viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(state) {
             block.invoke(this)

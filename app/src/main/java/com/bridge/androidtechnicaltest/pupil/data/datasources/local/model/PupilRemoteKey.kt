@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "pupil_remote_keys")
-data class PupilRemoteKeys(
+data class PupilRemoteKey(
     @PrimaryKey val pupilId: Int,
     val prevKey: Int?,
     val nextKey: Int?

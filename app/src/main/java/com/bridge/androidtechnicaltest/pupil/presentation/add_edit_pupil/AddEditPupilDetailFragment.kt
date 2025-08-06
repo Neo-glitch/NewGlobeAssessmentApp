@@ -27,6 +27,7 @@ import com.bridge.androidtechnicaltest.core.utils.showErrorToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showWarningToastMessage
 import com.bridge.androidtechnicaltest.databinding.FragmentAddEditPupilDetailBinding
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -135,7 +136,7 @@ class AddEditPupilDetailFragment : BaseFragment<FragmentAddEditPupilDetailBindin
     private fun observeView() {
         launchScope {
             launch {
-                viewmodel.uiState.collect { state ->
+                viewmodel.uiState.collectLatest { state ->
                     when (state.loadState) {
                         AddEditLoadState.Idle -> {
                             requireBinding().apply {
@@ -177,7 +178,7 @@ class AddEditPupilDetailFragment : BaseFragment<FragmentAddEditPupilDetailBindin
             }
 
             launch {
-                viewmodel.output.collect { output ->
+                viewmodel.output.collectLatest { output ->
                     when (output) {
                         AddEditPupilOutput.OnEditSuccess -> {
                             showSuccessToastMessage("Pupil details Saved successfully")

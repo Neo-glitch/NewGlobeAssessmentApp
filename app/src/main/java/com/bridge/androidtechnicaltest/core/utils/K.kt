@@ -8,6 +8,7 @@ object K {
     const val PAGE_SIZE = 20
 
     const val TEMP_PUPIL_PUBLIC_ID = -100
+    const val STALE_DATA_THRESHOLD = 1 * 60 * 60 * 1000L
 
     const val NETWORK_ERROR_MSG = "Network error, please try again later"
     const val NO_INTERNET_MSG = "Please check your internet connection"

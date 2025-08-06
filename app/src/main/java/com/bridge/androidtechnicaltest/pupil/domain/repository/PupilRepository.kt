@@ -11,8 +11,6 @@ interface PupilRepository {
 
     suspend fun getPupil(id: Int) : Resource<PupilEntity>
 
-    suspend fun getUnsyncedPupils(): Resource<List<PupilEntity>>
-
     suspend fun updatePupil(pupil: PupilEntity): Resource<Unit>
 
     suspend fun createPupil(pupil: PupilEntity): Resource<Unit>

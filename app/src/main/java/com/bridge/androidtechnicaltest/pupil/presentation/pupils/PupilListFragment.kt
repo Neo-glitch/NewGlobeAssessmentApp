@@ -54,20 +54,16 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
         launchScope {
             launch {
                 viewModel.pupils.collectLatest {
-                    pupilsAdapter.submitData(pagingData = it)
+                    pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = it)
                 }
             }
 
             launch {
                 viewModel.uiState.collectLatest { state ->
-//                    state.data.collectLatest {
-//                        pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = it)
-//                    }
-
-
                     when (state.loadState) {
                         PupilsLoadState.Empty -> handleEmptyState()
-                        is PupilsLoadState.Error -> handleErrorState(state.loadState.message)
+                        is PupilsLoadState.InitialError -> handleInitialErrorState(state.loadState.message)
+                        PupilsLoadState.Error -> handleErrorState()
                         PupilsLoadState.Idle -> handleIdleState()
                         PupilsLoadState.InitialLoading -> handleInitialLoadState()
                         PupilsLoadState.Refreshing -> handleRefreshingState()
@@ -81,12 +77,19 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
                     viewModel.onLoadStateChanged(loadStates = loadStates, itemCount = pupilsAdapter.itemCount)
                 }
             }
+        }
+    }
 
-            launch {
-                viewModel.pupils.collectLatest {
-                    pupilsAdapter.submitData(lifecycle = lifecycle, pagingData = it)
-                }
-            }
+    private fun handleErrorState() {
+        requireBinding().apply {
+            swipeRefreshLayout.isEnabled = true
+            swipeRefreshLayout.isRefreshing = false
+            isSwipeToRefreshLoading = false
+
+            emptyErrorView.visibility = View.GONE
+            retryBtn.visibility = View.GONE
+            pupilList.visibility = View.VISIBLE
+            progressLoader.visibility = View.GONE
         }
     }
 
@@ -105,7 +108,7 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
         }
     }
 
-    private fun handleErrorState(message: String) {
+    private fun handleInitialErrorState(message: String) {
         requireBinding().apply {
             swipeRefreshLayout.isEnabled = false
             swipeRefreshLayout.isRefreshing = false
@@ -125,10 +128,6 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
 
     private fun handleRefreshingState() {
         requireBinding().apply {
-            swipeRefreshLayout.isEnabled = false
-            swipeRefreshLayout.isRefreshing = true
-            isSwipeToRefreshLoading = true
-
             emptyErrorView.visibility = View.GONE
             pupilList.visibility = View.VISIBLE
             progressLoader.visibility = View.GONE
@@ -141,6 +140,7 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
             swipeRefreshLayout.isEnabled = true
             swipeRefreshLayout.isRefreshing = false
             isSwipeToRefreshLoading = false
+
             emptyErrorView.visibility = View.GONE
             retryBtn.visibility = View.GONE
             pupilList.visibility = View.VISIBLE
@@ -150,10 +150,6 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
 
     private fun handleInitialLoadState() {
         requireBinding().apply {
-            swipeRefreshLayout.isEnabled = isSwipeToRefreshLoading
-            swipeRefreshLayout.isRefreshing = false
-            isSwipeToRefreshLoading = false
-
             retryBtn.visibility = View.GONE
             emptyErrorView.visibility = View.GONE
             pupilList.visibility = View.GONE
@@ -205,6 +201,7 @@ class PupilListFragment : BaseFragment<FragmentPupillistBinding>() {
             swipeRefreshLayout.setOnRefreshListener {
                 if (viewModel.uiState.value.loadState != PupilsLoadState.InitialLoading){
                     swipeRefreshLayout.isRefreshing = true
+                    isSwipeToRefreshLoading = true
                     pupilsAdapter.refresh()
                 }
             }

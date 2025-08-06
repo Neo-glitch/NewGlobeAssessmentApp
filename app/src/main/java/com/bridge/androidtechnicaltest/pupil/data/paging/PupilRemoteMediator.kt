@@ -4,10 +4,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.bridge.androidtechnicaltest.core.domain.Resource
 import com.bridge.androidtechnicaltest.core.utils.GeneralExceptionHandler
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.PupilLocalDataSource
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.LocalPupil
+import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.PupilRemoteKey
 import com.bridge.androidtechnicaltest.pupil.data.datasources.local.model.SyncStatus
 import com.bridge.androidtechnicaltest.pupil.data.datasources.remote.PupilRemoteDataSource
 import com.bridge.androidtechnicaltest.pupil.data.mapper.toLocal
@@ -28,18 +28,15 @@ class PupilRemoteMediator(
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> 1
-            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+            LoadType.PREPEND -> {
+                val remoteKey = getRemoteKeyForFirstItem(state)
+                val prevKey = remoteKey?.prevKey
+                prevKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKey != null)
+            }
             LoadType.APPEND -> {
-                val lastSyncedItem = state.pages
-                    .lastOrNull { state -> state.data.any { it.syncStatus == SyncStatus.SYNCED } }
-                    ?.data
-                    ?.lastOrNull { it.syncStatus == SyncStatus.SYNCED }
-
-                val remoteKey = lastSyncedItem?.let {
-                    localDataSource.getRemoteKeysByPublicId(it.pupilId)
-                }
-
-                remoteKey?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                val remoteKey = getRemoteKeyForLastItem(state)
+                val nextKey = remoteKey?.nextKey
+                nextKey ?: return MediatorResult.Success(endOfPaginationReached = remoteKey != null)
             }
         }
 
@@ -63,5 +60,17 @@ class PupilRemoteMediator(
             val errorMessage = GeneralExceptionHandler.getErrorMessage(t)
             MediatorResult.Error(Exception(errorMessage))
         }
+    }
+
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, LocalPupil>): PupilRemoteKey? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }
+            ?.data?.lastOrNull()
+            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, LocalPupil>): PupilRemoteKey? {
+        return state.pages.firstOrNull { it.data.isNotEmpty() }
+            ?.data?.firstOrNull()
+            ?.let { pupil -> localDataSource.getRemoteKeyByPupilId(pupil.pupilId) }
     }
 }

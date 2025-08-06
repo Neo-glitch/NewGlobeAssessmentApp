@@ -21,13 +21,13 @@ interface PupilDao {
     @Upsert
     suspend fun upsertPupil(pupil: LocalPupil)
 
-    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
+    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE'")
     suspend fun getPupils(): List<LocalPupil>
 
-    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
+    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE'")
     fun getPupilsFlowable(): Flow<List<LocalPupil>>
 
-    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE' ORDER BY name ASC")
+    @Query("SELECT * FROM Pupils WHERE sync_status != 'PENDING_DELETE'")
     fun getPupilsPagingSource(): PagingSource<Int, LocalPupil>
 
     @Query("SELECT * FROM Pupils WHERE id = :id")
