@@ -27,6 +27,7 @@ import com.bridge.androidtechnicaltest.core.utils.showErrorToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
 import com.bridge.androidtechnicaltest.core.utils.showWarningToastMessage
 import com.bridge.androidtechnicaltest.databinding.FragmentAddEditPupilDetailBinding
+import com.bridge.androidtechnicaltest.pupil.util.PupilSyncWorkManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -181,6 +182,7 @@ class AddEditPupilDetailFragment : BaseFragment<FragmentAddEditPupilDetailBindin
                 viewmodel.output.collectLatest { output ->
                     when (output) {
                         AddEditPupilOutput.OnEditSuccess -> {
+                            PupilSyncWorkManager(requireContext().applicationContext).enqueOneTimePupilSyncWork()
                             showSuccessToastMessage("Pupil details Saved successfully")
                             pop()
                         }

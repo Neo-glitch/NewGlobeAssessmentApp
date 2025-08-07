@@ -15,6 +15,7 @@ import com.bridge.androidtechnicaltest.core.utils.showSingleDialogAlert
 import com.bridge.androidtechnicaltest.core.utils.showSuccessToastMessage
 import com.bridge.androidtechnicaltest.core.utils.visible
 import com.bridge.androidtechnicaltest.databinding.FragmentPupildetailBinding
+import com.bridge.androidtechnicaltest.pupil.util.PupilSyncWorkManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,6 +60,7 @@ class PupilDetailFragment : BaseFragment<FragmentPupildetailBinding>() {
                         }
 
                         PupilDetailOutput.OnDeleteSuccess -> {
+                            PupilSyncWorkManager(requireContext().applicationContext).enqueOneTimePupilSyncWork()
                             showSuccessToastMessage(getString(R.string.delete_pupil_success))
                             pop()
                         }
