@@ -4,19 +4,17 @@ import com.bridge.androidtechnicaltest.BuildConfig
 import com.bridge.androidtechnicaltest.core.database.DatabaseFactory
 import com.bridge.androidtechnicaltest.core.network.AuthInterceptor
 import com.bridge.androidtechnicaltest.core.network.NetworkConnectionInterceptor
-import com.bridge.androidtechnicaltest.core.network.RequestInterceptor
+import com.bridge.androidtechnicaltest.core.network.HeaderInterceptor
 import com.bridge.androidtechnicaltest.core.utils.ILocationHelper
 import com.bridge.androidtechnicaltest.core.utils.K
 import com.bridge.androidtechnicaltest.core.utils.K.API_TIMEOUT
 import com.bridge.androidtechnicaltest.core.utils.LocationHelper
-import com.bridge.androidtechnicaltest.pupil.data.datasources.local.PupilLocalDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -37,7 +35,7 @@ val networkModule = module {
             .connectTimeout(API_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(NetworkConnectionInterceptor())
             .addInterceptor(AuthInterceptor())
-            .addInterceptor(RequestInterceptor())
+            .addInterceptor(HeaderInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY
