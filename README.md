@@ -91,7 +91,11 @@ This Android application allows users to manage pupil records via a RESTful API 
 ---
 
 ## Installation & Setup
+- git clone https://github.com/Neo-glitch/NewGlobeAssessmentApp.git
+  cd NewGlobeAssessmentApp
+- Create a local.properties file in the project root and add the following values:
+  - sdk.dir=/Users/user/Library/Android/sdk
+  - REQUEST_ID = {REQUEST_ID}
+  - USER_AGENT = {USER_AGENT}
+- Run the project
 
-```bash
-git clone https://github.com/Neo-glitch/NewGlobeAssessmentApp.git
-cd NewGlobeAssessmentApp
