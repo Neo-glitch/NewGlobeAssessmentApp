@@ -12,7 +12,7 @@ class MyAppGlideModule : AppGlideModule() {
         context: Context,
         builder: GlideBuilder
     ) {
-        val cacheSizeBytes = 1024 * 1024 * 50 // 100 MB
+        val cacheSizeBytes = 1024 * 1024 * 50
         builder.setDiskCache(
             InternalCacheDiskCacheFactory(context, cacheSizeBytes.toLong())
         )
