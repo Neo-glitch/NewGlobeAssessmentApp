@@ -47,7 +47,7 @@ class PupilSyncWorkManager(private val context: Context) {
             .build()
 
         val workRequest = PeriodicWorkRequestBuilder<PupilSyncWorker>(
-            30, TimeUnit.MINUTES
+            20, TimeUnit.MINUTES
         )
             .setBackoffCriteria(
                 BackoffPolicy.EXPONENTIAL,

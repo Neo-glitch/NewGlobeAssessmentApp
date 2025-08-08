@@ -26,6 +26,7 @@ class NotificationHelper(private val context: Context) {
         ) .apply {
             description = "Notifications for data synchronization"
             setShowBadge(false)
+            setSound(null, null)
         }
 
         val notificationManager = context.getSystemService(
