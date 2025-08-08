@@ -11,18 +11,27 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-interface ILocationHelper {
+interface LocationHelper {
     suspend fun getCurrentLocation(): Pair<Double, Double>?
 }
 
-class LocationHelper(private val context: Context) : ILocationHelper  {
+class LocationHelperImpl(private val context: Context, private val internetConnectivityManager: InternetConnectivityManager) : LocationHelper  {
 
-    override suspend fun getCurrentLocation(): Pair<Double, Double>? =
-        suspendCancellableCoroutine { continuation ->
-            val fusedClient = LocationServices.getFusedLocationProviderClient(context)
+    override suspend fun getCurrentLocation(): Pair<Double, Double>? {
+        val fusedClient = LocationServices.getFusedLocationProviderClient(context)
+
+        if (!internetConnectivityManager.isInternetAvailable()) {
+            val lastLocation = fusedClient.lastLocation.await()
+            return lastLocation?.let {
+                Pair(it.latitude, it.longitude)
+            }
+        }
+
+        return suspendCancellableCoroutine { continuation ->
 
             val request = LocationRequest.Builder(
                 Priority.PRIORITY_BALANCED_POWER_ACCURACY,
@@ -50,4 +59,6 @@ class LocationHelper(private val context: Context) : ILocationHelper  {
                 continuation.resume(null)
             }
         }
+    }
+
 }
